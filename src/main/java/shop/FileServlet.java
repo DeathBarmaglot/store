@@ -15,7 +15,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @WebServlet(urlPatterns = {"/file-servlet"})
-@MultipartConfig(location = "/home/dru/dev/__letscode/servletapp")
+@MultipartConfig(location = "/home/pasha/")
 public class FileServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -32,6 +32,6 @@ public class FileServlet extends HttpServlet {
             }
         }
 
-        resp.sendRedirect("/my-app/cool-servlet");
+        resp.sendRedirect("/products/cool-servlet");
     }
 }

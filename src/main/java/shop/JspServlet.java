@@ -12,14 +12,13 @@ import java.util.ArrayList;
 public class JspServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ArrayList<User> users = new ArrayList<User>() {{
-            add(new User("Igor", "Vietnam", 24));
-            add(new User("Mike", "Thailand", 33));
-            add(new User("Joe", "Bali", 55));
+        ArrayList<Food> foods = new ArrayList<Food>() {{
+            add(new Food("Meat", 24,"2022-12-22", 12));
+            add(new Food("Milk", 33, "2021-12-22", 11));
+            add(new Food("Tofu", 55, "2020-11-20", 10));
         }};
 
-        req.setAttribute("users", users);
-
+        req.setAttribute("foods", foods);
         getServletContext().getRequestDispatcher("/first-jsp.jsp").forward(req, resp);
     }
 }

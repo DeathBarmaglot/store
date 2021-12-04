@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.stream.Collectors;
 
-@WebServlet(urlPatterns = {"/cool-servlet", "/my-cool-servlet/*"})
+@WebServlet(urlPatterns = {"/check", "/check-servlet/*"})
 public class MainServlet extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
@@ -30,10 +30,14 @@ public class MainServlet extends HttpServlet {
         String params = formatParams(req);
 
         resp.getWriter().write("Method doGet\nURI: " + uri + "\nParams:\n" + params + "\n");
+        JBDConnection connection = new JBDConnection();
+
+//        System.out.println(connection.getArr());
+//        resp.getWriter().write(""+ connection.getArr());
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String uri = req.getRequestURI();
         String params = formatParams(req);
 

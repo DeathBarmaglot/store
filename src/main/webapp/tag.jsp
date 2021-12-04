@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="letscodeTags" prefix="lct" %>
+<%@ taglib uri="shopTags" prefix="lct" %>
 <html>
 <head>
     <title>Title</title>

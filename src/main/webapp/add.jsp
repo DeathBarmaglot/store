@@ -1,6 +1,6 @@
 <%@ page import="java.time.LocalDateTime" %>
 <%@ page import="java.util.List" %>
-<%@ page import="letscode.User" %>
+<%@ page import="shop.Food" %>
 
 <!doctype html>
 <html>
@@ -19,25 +19,25 @@
 <%= LocalDateTime.now() %>
 <hr/>
 <%
-    List<User> users = (List) request.getAttribute("users");
-    User anUser = users.get(0);
+    List<Food> users = (List) request.getAttribute("food");
+    Food anUser = users.get(0);
 %>
     <b><%= anUser.getName() %></b>
-    <i><%= anUser.getCountry() %></i>
-    <u><%= anUser.getAge() %></u>
+    <i><%= anUser.getDate() %></i>
+    <u><%= anUser.getPrice() %></u>
 
 <table>
-<% for (User user : users) {%>
+<% for (Food user : users) {%>
     <tr>
        <td><%= user.getName() %></td>
        <td>
-           <% if (user.getCountry().equals("Vietnam")) { %>
-                <b><%= user.getCountry() %></b>
+           <% if (user.getName().equals("Vietnam")) { %>
+                <b><%= user.getName() %></b>
            <% } else { %>
-                <%= user.getCountry() %>
+                <%= user.getName() %>
            <% } %>
        </td>
-       <td><%= user.getAge() %></td>
+       <td><%= user.getPrice() %></td>
     </tr>
 <% } %>
 </table>

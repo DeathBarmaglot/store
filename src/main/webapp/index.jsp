@@ -6,7 +6,7 @@
 </head>
 <body>
 <%
-    String[] tagTypes = new String[] { "for", "if", "case", "import", "tag" };
+    String[] tagTypes = new String[] { "add", "post", "edit", "remove" };
     request.setAttribute("urls", tagTypes);
 %>
 <h3>Pages with examples for:</h3>
