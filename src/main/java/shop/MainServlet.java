@@ -35,7 +35,6 @@ public class MainServlet extends HttpServlet {
 //        System.out.println(connection.getArr());
 //        resp.getWriter().write(""+ connection.getArr());
     }
-
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String uri = req.getRequestURI();

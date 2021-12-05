@@ -1,7 +1,10 @@
+shop\DatabaseDemo.class
 shop\ExpressionBodyTag.class
 shop\MainServlet.class
 shop\EmptyTag.class
 shop\JspServlet$1.class
+shop\Food.class
+shop\DAO.class
 shop\JspServlet.class
 shop\TextBodyTag.class
 shop\JBDConnection.class
