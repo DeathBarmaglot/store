@@ -8,6 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class JdbcDao implements FoodDao {
     private static final FoodMapper FOOD_MAPPER = new FoodMapper();
     private static final String NEW_SQL = "CREATE TABLE Goods (id SERIAL, name VARCHAR(100), price int, date DATE);";
@@ -31,6 +32,14 @@ public class JdbcDao implements FoodDao {
 
         return null;
     }
+
+    public void create(Food food) throws SQLException {
+        Connection connection = getConnection();
+        connection.createStatement().execute(NEW_SQL);
+
+    }
+
+
     public void add(Food food){
         try(Connection connection = getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(ADD_SQL + " ")){

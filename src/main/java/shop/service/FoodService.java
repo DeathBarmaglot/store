@@ -19,6 +19,13 @@ public class FoodService {
         return foods;
     }
 
+    public void create(Food food) throws SQLException {
+        LocalDateTime localDateTime = LocalDateTime.now();
+        food.setDate(localDateTime);
+        foodDao.create(food);
+        System.out.println("Food added");
+    }
+
     public void add(Food food) {
         LocalDateTime localDateTime = LocalDateTime.now();
         food.setDate(localDateTime);

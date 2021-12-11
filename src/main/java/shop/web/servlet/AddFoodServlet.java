@@ -48,6 +48,7 @@ public class AddFoodServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         try {
             Food food = getFoodFromRequest(req);
+            foodService.create(food);
             foodService.add(food);
             resp.sendRedirect("food_list.html");
         } catch (Exception e) {

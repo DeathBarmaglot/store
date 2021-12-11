@@ -9,5 +9,7 @@ public interface FoodDao {
 
     void add(Food food);
 
+    void create(Food food) throws SQLException;
+
     List<Food> findByName(String name);
 }
