@@ -10,10 +10,11 @@ import java.util.List;
 
 public class JdbcDao implements FoodDao {
     private static final FoodMapper FOOD_MAPPER = new FoodMapper();
+    private static final String NEW_SQL = "CREATE TABLE Goods (id SERIAL, name VARCHAR(100), price int, date DATE);";
     private static final String FIND_ALL_SQL = "SELECT id, name, price, date FROM goods;";
     private static final String ADD_SQL = "INSERT INTO goods (name, price, date)" +
             "VALUES (?, ?, ?, ?);";
-
+//+ "VALUES (10, 'cheese', 100, '2020-11-10')";
     public List<Food> findAll() {
         try(Connection connection = getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_SQL);

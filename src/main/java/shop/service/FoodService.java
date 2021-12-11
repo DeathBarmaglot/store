@@ -1,7 +1,7 @@
-package shop;
+package shop.service;
 
+import shop.Food;
 import shop.dao.FoodDao;
-
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -14,8 +14,8 @@ public class FoodService {
     }
 
     public List<Food> findAll() throws SQLException {
-        List<Food> foods = foodDao.findAll();
-        System.out.println(foods.size());
+        List<Food> foods;
+        foods = foodDao.findAll();
         return foods;
     }
 

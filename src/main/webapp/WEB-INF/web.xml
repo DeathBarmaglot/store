@@ -4,31 +4,31 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://www.oracle.com/webfolder/technetwork/jsc/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
     <servlet>
-        <servlet-name>products</servlet-name>
+        <servlet-name>product</servlet-name>
         <servlet-class>shop.MainServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>products</servlet-name>
+        <servlet-name>product</servlet-name>
         <url-pattern>/my-servlet</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
-        <servlet-name>products</servlet-name>
+        <servlet-name>product</servlet-name>
         <url-pattern>/post</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
-        <servlet-name>products</servlet-name>
+        <servlet-name>product</servlet-name>
         <url-pattern>/remove</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
-        <servlet-name>products</servlet-name>
+        <servlet-name>product</servlet-name>
         <url-pattern>/add</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
-        <servlet-name>products</servlet-name>
+        <servlet-name>product</servlet-name>
         <url-pattern>/edit</url-pattern>
     </servlet-mapping>
 

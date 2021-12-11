@@ -1,7 +1,6 @@
 package shop.dao.jdbc.mapper;
 
 import shop.Food;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -12,7 +11,11 @@ public class FoodMapper {
         String name = resultSet.getString("name");
         int price = resultSet.getInt("price");
         Timestamp date = resultSet.getTimestamp("date");
-        Food food = Food.builder().id(id).name(name).price(price).date(date.toLocalDateTime()).build();
-        return food;
+        return Food.builder()
+                .id(id)
+                .name(name)
+                .price(price)
+                .date(date.toLocalDateTime())
+                .build();
     }
 }
