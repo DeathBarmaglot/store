@@ -2,10 +2,7 @@ package shop;
 
 import shop.dao.jdbc.JdbcDao;
 import shop.service.FoodService;
-import shop.web.servlet.AddFoodServlet;
-import shop.web.servlet.EditFoodServlet;
-import shop.web.servlet.LogInServlet;
-import shop.web.servlet.ShowAllRequestServlet;
+import shop.web.servlet.*;
 
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
@@ -19,11 +16,14 @@ public class Starter {
         ShowAllRequestServlet showAllRequestServlet = new ShowAllRequestServlet(foodService);
         AddFoodServlet addFoodServlet = new AddFoodServlet(foodService);
         EditFoodServlet editFoodServlet = new EditFoodServlet(foodService);
+        ShowList showList = new ShowList(foodService);
+
 
         ServletContextHandler contextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
 
-        contextHandler.addServlet(new ServletHolder(new LogInServlet()), "/login");
-        contextHandler.addServlet(new ServletHolder(showAllRequestServlet), "/");
+        contextHandler.addServlet(new ServletHolder(new LogInServlet()), "/");
+        contextHandler.addServlet(new ServletHolder(showList), "/list");
+        contextHandler.addServlet(new ServletHolder(showAllRequestServlet), "/product");
         contextHandler.addServlet(new ServletHolder(addFoodServlet), "/add");
         contextHandler.addServlet(new ServletHolder(editFoodServlet), "/edit");
 

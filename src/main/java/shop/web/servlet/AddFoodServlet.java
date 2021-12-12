@@ -37,7 +37,7 @@ public class AddFoodServlet extends HttpServlet {
             //TODO foodType filter
             // params.put("foodType", foodType.values());
             resp.sendRedirect("/product");
-            String page = pageGenerator.getPage("add.html", params);
+            String page = pageGenerator.getPage("list_food.html", params);
             resp.getWriter().write(page);
         } else {
             resp.sendRedirect("/");
@@ -48,13 +48,14 @@ public class AddFoodServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         try {
             Food food = getFoodFromRequest(req);
-            foodService.create(food);
+//            foodService.create(food);
             foodService.add(food);
-            resp.sendRedirect("food_list.html");
+            resp.sendRedirect("list.html");
+            System.out.println(food);
         } catch (Exception e) {
             String error = "<div>Your food not been added</div>";
             Map<String, Object> param = Map.of("error", error);
-            String page = pageGenerator.getPage("add_food.html", param);
+            String page = pageGenerator.getPage("add.html", param);
             resp.getWriter().write(page);
         }
     }

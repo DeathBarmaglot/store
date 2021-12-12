@@ -10,7 +10,7 @@ import shop.web.util.PageGenerator;
 import java.io.IOException;
 import java.util.UUID;
 
-@WebServlet("/login")
+@WebServlet("/")
 public class LogInServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -27,7 +27,7 @@ public class LogInServlet extends HttpServlet {
         Cookie cookie = new Cookie("userToken", userToken);
         resp.addCookie(cookie);
         resp.addCookie(new Cookie("language", "ua"));
-        resp.sendRedirect("/");
+        resp.sendRedirect("/product");
         System.out.println(name+" "+pwd+" "+userToken);
 
     }
