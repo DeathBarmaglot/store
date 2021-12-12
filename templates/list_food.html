@@ -10,15 +10,26 @@
 
     <title>Main</title>
 </head>
-<body>
-    <form action="/add" method="post" class="d-flex justify-content-center">
-<!--         <a href="add.html" class="col-8 col-sm-1 btn btn-primary float-sm-right">add</a> -->
-        <button type="submit" class="col-8 col-sm-1 btn btn-primary float-sm-center">Add</button>
-        <!-- <button type="submit" class="col-8 col-sm-1 btn btn-secondary float-sm-center">List</button> -->
+<body class="d-flex justify-content-center">
+    <form action="/add" method="post">
+        <button type="submit" class="btn btn-outline-success float-sm-center">Add</button>
     </form>
-        <form action="/list" method="get" class="d-flex justify-content-center">
-        <button type="submit" class="col-8 col-sm-1 btn btn-secondary float-sm-center">List</button>
+        <form action="/list" method="get">
+        <button type="submit" class="btn btn-outline-primary float-sm-center">List</button>
     </form>
+        <form action="/edit" method="get">
+        <button type="submit" class="btn btn-outline-secondary float-sm-center">Edit</button>
+    </form>
+        <form action="/remove" method="get">
+        <button type="submit" class="btn btn-outline-info float-sm-center">Del</button>
+    </form>
+  <nav>
+    <div class="container-fluid">
+      <a class="btn btn-outline-danger" href="/">Out</a>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+       </div>
+    </div>
+</nav>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

@@ -13,9 +13,10 @@ public class Starter {
 
         JdbcDao jdbcDao = new JdbcDao();
         FoodService foodService = new FoodService(jdbcDao);
-        ShowAllRequestServlet showAllRequestServlet = new ShowAllRequestServlet(foodService);
+        MainPage mainPage = new MainPage(foodService);
         AddFoodServlet addFoodServlet = new AddFoodServlet(foodService);
         EditFoodServlet editFoodServlet = new EditFoodServlet(foodService);
+//        RemoveFoodServlet removeFoodServlet = new RemoveFoodServlet(foodService);
         ShowList showList = new ShowList(foodService);
 
 
@@ -23,7 +24,7 @@ public class Starter {
 
         contextHandler.addServlet(new ServletHolder(new LogInServlet()), "/");
         contextHandler.addServlet(new ServletHolder(showList), "/list");
-        contextHandler.addServlet(new ServletHolder(showAllRequestServlet), "/product");
+        contextHandler.addServlet(new ServletHolder(mainPage), "/product");
         contextHandler.addServlet(new ServletHolder(addFoodServlet), "/add");
         contextHandler.addServlet(new ServletHolder(editFoodServlet), "/edit");
 

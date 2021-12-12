@@ -36,7 +36,7 @@ public class AddFoodServlet extends HttpServlet {
             HashMap<String, Object> params = new HashMap<>();
             //TODO foodType filter
             // params.put("foodType", foodType.values());
-            resp.sendRedirect("/product");
+            resp.sendRedirect("/add");
             String page = pageGenerator.getPage("list_food.html", params);
             resp.getWriter().write(page);
         } else {
@@ -50,8 +50,8 @@ public class AddFoodServlet extends HttpServlet {
             Food food = getFoodFromRequest(req);
 //            foodService.create(food);
             foodService.add(food);
-            resp.sendRedirect("list.html");
-            System.out.println(food);
+            resp.sendRedirect("/add.html");
+            System.out.println("AddDoPost" + food);
         } catch (Exception e) {
             String error = "<div>Your food not been added</div>";
             Map<String, Object> param = Map.of("error", error);

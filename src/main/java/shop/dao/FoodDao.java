@@ -7,7 +7,7 @@ import java.util.List;
 public interface FoodDao {
     List<Food> findAll() throws SQLException;
 
-    void add(Food food);
+    void add(Food food) throws SQLException;
 
     void create(Food food) throws SQLException;
 

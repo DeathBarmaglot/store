@@ -40,7 +40,7 @@ public class JdbcDao implements FoodDao {
 
     public void add(Food food) {
         try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(ADD_SQL + " ")) {
+            PreparedStatement preparedStatement = connection.prepareStatement(ADD_SQL + " ")) {
             preparedStatement.setString(1, food.getName());
             preparedStatement.setInt(2, food.getPrice());
             preparedStatement.setTimestamp(3, Timestamp.valueOf(food.getDate()));

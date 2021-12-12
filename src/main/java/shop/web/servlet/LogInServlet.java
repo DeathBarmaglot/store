@@ -28,7 +28,7 @@ public class LogInServlet extends HttpServlet {
         resp.addCookie(cookie);
         resp.addCookie(new Cookie("language", "ua"));
         resp.sendRedirect("/product");
-        System.out.println(name+" "+pwd+" "+userToken);
+        System.out.println("Log post" + name + " " + pwd + " " + userToken);
 
     }
 }
