@@ -1,7 +1,7 @@
 package shop.dao.jdbc;
 
 import org.junit.jupiter.api.Test;
-import shop.Food;
+import shop.web.entity.Food;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

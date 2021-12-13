@@ -1,7 +1,7 @@
 package shop.dao.jdbc;
 
 import org.junit.jupiter.api.Test;
-import shop.Food;
+import shop.web.entity.Food;
 
 import java.util.List;
 
@@ -10,8 +10,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class JdbcDaoTest {
     @Test
     public void testData() {
-        JdbcDao jdbcDao = new JdbcDao();
-        List<Food> foods = jdbcDao.findAll();
+        JdbcFoodDao jdbcDao = new JdbcFoodDao();
+        List<Food> foods = jdbcDao.findAllFood();
         assertFalse(foods.isEmpty());
         for (Food food : foods) {
             assertNotEquals(0, food.getId());

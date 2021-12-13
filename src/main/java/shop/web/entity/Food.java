@@ -1,10 +1,9 @@
-package shop;
+package shop.web.entity;
 
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-
 import java.time.LocalDateTime;
 
 @Getter
@@ -13,8 +12,7 @@ import java.time.LocalDateTime;
 @ToString
 public class Food {
     private String name;
-    private LocalDateTime date;
     private int price;
     private int id;
-
+    private LocalDateTime date;
 }

@@ -1,10 +1,12 @@
 package shop.web.servlet;
 
+import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import shop.Food;
+import org.apache.avro.mapred.tether.TaskType;
+import shop.web.entity.Food;
 import shop.service.FoodService;
 import shop.web.util.PageGenerator;
 
@@ -13,7 +15,9 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 
-@WebServlet("/product")
+import static shop.web.util.WebUtil.getFood;
+
+@WebServlet("/main")
 public class MainPage extends HttpServlet {
     private final FoodService foodService;
 
@@ -23,13 +27,19 @@ public class MainPage extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+
         List<Food> foods = null;
 
+        //TODO
+        // getFood(req);
+
+//        TaskType[] taskType = TaskType.values();
+
         if (req.getParameter("name") != null) {
-            foods = foodService.findByName(req.getParameter("goods"));
+            foods = foodService.findFoodByName(req.getParameter("goods"));
         } else {
             try {
-                foods = foodService.findAll();
+                foods = foodService.findAllFood();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -40,6 +50,13 @@ public class MainPage extends HttpServlet {
         System.out.println("main get "+ foods);
         String page = pageGenerator.getPage("list_food.html", params);
         resp.getWriter().write(page);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+
+
     }
 }
 

@@ -1,21 +1,20 @@
 package shop.dao.jdbc.mapper;
 
-import shop.web.entity.Food;
-
+import shop.web.entity.User;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
-public class FoodMapper {
-    public Food mapRow(ResultSet resultSet) throws SQLException {
-        int id = resultSet.getInt("id");
+public class UserMapper {
+    public User mapRow(ResultSet resultSet) throws SQLException {
         String name = resultSet.getString("name");
-        int price = resultSet.getInt("price");
+        String email = resultSet.getString("email");
+        String pwd = resultSet.getString("pwd");
         Timestamp date = resultSet.getTimestamp("date");
-        return Food.builder()
-                .id(id)
+        return User.builder()
                 .name(name)
-                .price(price)
+                .email(email)
+                .pwd(pwd)
                 .date(date.toLocalDateTime())
                 .build();
     }

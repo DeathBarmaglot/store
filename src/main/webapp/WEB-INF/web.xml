@@ -14,7 +14,12 @@
 
     <servlet-mapping>
         <servlet-name>product</servlet-name>
-        <url-pattern>/post</url-pattern>
+        <url-pattern>/list</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>product</servlet-name>
+        <url-pattern>/main</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>

@@ -5,9 +5,11 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import shop.Food;
+import lombok.SneakyThrows;
+import shop.web.entity.Food;
 import shop.service.FoodService;
 import shop.web.util.PageGenerator;
+import shop.web.util.WebUtil;
 
 import java.io.IOException;
 
@@ -22,7 +24,17 @@ public class AddFoodServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         //TODO isAuth
-        boolean isAuth = false;
+//        String token = getToken(req);
+        boolean isAuth = false; //userService.isAuth(token, userToken);
+        if (isAuth) {
+            HashMap<String, Object> params = new HashMap<>();
+            String page = pageGenerator.getPage("add.html", params);
+            resp.getWriter().write(page);
+        } else {
+            resp.sendRedirect("/");
+        }
+
+    
         Cookie[] cookies = req.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
@@ -36,8 +48,9 @@ public class AddFoodServlet extends HttpServlet {
             HashMap<String, Object> params = new HashMap<>();
             //TODO foodType filter
             // params.put("foodType", foodType.values());
+
             resp.sendRedirect("/add");
-            String page = pageGenerator.getPage("list_food.html", params);
+            String page = pageGenerator.getPage("new_Food.html", params);
             resp.getWriter().write(page);
         } else {
             resp.sendRedirect("/");
@@ -49,8 +62,8 @@ public class AddFoodServlet extends HttpServlet {
         try {
             Food food = getFoodFromRequest(req);
 //            foodService.create(food);
-            foodService.add(food);
-            resp.sendRedirect("/add.html");
+            foodService.addFood(food);
+            resp.sendRedirect("/main.html");
             System.out.println("AddDoPost" + food);
         } catch (Exception e) {
             String error = "<div>Your food not been added</div>";

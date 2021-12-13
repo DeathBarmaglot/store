@@ -4,7 +4,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import shop.Food;
+import shop.web.entity.Food;
 import shop.service.FoodService;
 import shop.web.util.PageGenerator;
 
@@ -31,7 +31,7 @@ public class EditFoodServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         try {
             Food food = getFoodFromRequest(req);
-            foodService.add(food);
+            foodService.addFood(food);
             resp.sendRedirect("edit_food.html");
         } catch (Exception e) {
             PageGenerator pageGenerator = PageGenerator.instance();

@@ -1,6 +1,6 @@
 package shop.service;
 
-import shop.Food;
+import shop.web.entity.Food;
 import shop.dao.FoodDao;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
@@ -13,21 +13,21 @@ public class FoodService {
         this.foodDao = foodDao;
     }
 
-    public List<Food> findAll() throws SQLException {
+    public List<Food> findAllFood() throws SQLException {
         List<Food> foods;
-        foods = foodDao.findAll();
+        foods = foodDao.findAllFood();
         return foods;
     }
 
-     public void add(Food food) throws SQLException {
+     public void addFood(Food food) throws SQLException {
         LocalDateTime localDateTime = LocalDateTime.now();
         food.setDate(localDateTime);
-        foodDao.add(food);
+        foodDao.addFood(food);
         System.out.println("Food added");
     }
 
-    public List<Food> findByName(String name){
-        List<Food> foodList = foodDao.findByName(name);
+    public List<Food> findFoodByName(String name){
+        List<Food> foodList = foodDao.findFoodByName(name);
         System.out.println(("Obtain" + name + foodList));
         return foodList;
     }

@@ -1,15 +1,19 @@
 package shop.dao;
 
-import shop.Food;
+import shop.web.entity.Food;
 import java.sql.SQLException;
 import java.util.List;
 
 public interface FoodDao {
-    List<Food> findAll() throws SQLException;
+    boolean isFoodExists(Food food) throws SQLException;
 
-    void add(Food food) throws SQLException;
+    List<Food> findAllFood() throws SQLException;
 
-    void create(Food food) throws SQLException;
+    void addFood(Food food) throws SQLException;
 
-    List<Food> findByName(String name);
+    void editFood(Food food) throws SQLException;
+
+//    void removeFood(int id) throws SQLException;
+
+    List<Food> findFoodByName(String name);
 }
