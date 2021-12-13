@@ -13,7 +13,7 @@ public interface FoodDao {
 
     void editFood(Food food) throws SQLException;
 
-//    void removeFood(int id) throws SQLException;
+    void removeFood(int id) throws SQLException;
 
     List<Food> findFoodByName(String name);
 }

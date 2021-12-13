@@ -1,5 +1,6 @@
 package shop.dao.jdbc;
 
+import shop.dao.jdbc.mapper.UserMapper;
 import shop.web.entity.User;
 import shop.dao.UserDao;
 import shop.dao.jdbc.mapper.FoodMapper;
@@ -17,15 +18,21 @@ public class JdbcUserDao implements UserDao {
     private static final String FIND_USERS_SQL = "SELECT name, email, pwd FROM users *;";
 
     @Override
-    public List<User> findUserByName(String name) {
+    public void removeUser(int id) throws SQLException {
 
+    }
+
+    @Override
+    public List<User> findUserByName(String name) throws SQLException  {
+        //TODO findUserByName
+//
 //        try (Connection connection = getConnection();
 //             PreparedStatement preparedStatement = connection.prepareStatement(FIND_USER_SQL);
 //             ResultSet resultSet = preparedStatement.executeQuery();
 //        ) {
 //            List<User> users = new ArrayList<>();
 //            while (resultSet.next()) {
-//                User user = USER_MAPPER.mapRow(resultSet);
+//                User user = UserMapper.mapRow(resultSet);
 //                users.add(user);
 //            }
 //            return users;

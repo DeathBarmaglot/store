@@ -30,18 +30,25 @@ public class JdbcFoodDao implements FoodDao  {
     }
 
     @Override
-    public void editFood(Food food) throws SQLException {
+    public void editFood(Food food) {
     }
 
-   @Override
-   public boolean isFoodExists(Food food) throws SQLException {
+    @Override
+    public void removeFood(int id) throws SQLException {
+
+    }
+
+    @Override
+   public boolean isFoodExists(Food food) {
 
        try{ Connection connection = getConnection();
            PreparedStatement preparedStatement = connection.prepareStatement(FIND_FOOD_SQL);
            preparedStatement.setString(1, food.getName());
            ResultSet resultSet = preparedStatement.executeQuery();
-           List<Food> foods = new ArrayList<>();
-           System.out.println("Exist "+ foods+" "+resultSet);
+//TODO
+
+//           List<Food> foods = new ArrayList<>();
+//           System.out.println("Exist "+ foods+" "+resultSet);
 
        } catch (SQLException e) {
            e.printStackTrace();
@@ -57,7 +64,7 @@ public class JdbcFoodDao implements FoodDao  {
 
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(FOODS_SQL);
-             ResultSet resultSet = preparedStatement.executeQuery();
+             ResultSet resultSet = preparedStatement.executeQuery()
         ) {
             List<Food> foods = new ArrayList<>();
             while (resultSet.next()) {
@@ -77,7 +84,7 @@ public class JdbcFoodDao implements FoodDao  {
     public List<Food> findFoodByName(String name) {
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(FIND_FOOD_SQL);
-             ResultSet resultSet = preparedStatement.executeQuery();
+             ResultSet resultSet = preparedStatement.executeQuery()
         ) {
             List<Food> foods = new ArrayList<>();
             while (resultSet.next()) {

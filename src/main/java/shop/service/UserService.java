@@ -26,7 +26,7 @@ public class UserService {
         System.out.println("User added " + user);
     }
 
-    public List<User> findUserByName(String name){
+    public List<User> findUserByName(String name) throws SQLException {
         List<User> userList = userDao.findUserByName(name);
         System.out.println(("Obtain" + name + userList));
         return userList;

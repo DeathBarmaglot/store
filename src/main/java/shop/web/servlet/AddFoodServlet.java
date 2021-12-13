@@ -5,7 +5,6 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.SneakyThrows;
 import shop.web.entity.Food;
 import shop.service.FoodService;
 import shop.web.util.PageGenerator;
@@ -50,7 +49,7 @@ public class AddFoodServlet extends HttpServlet {
             // params.put("foodType", foodType.values());
 
             resp.sendRedirect("/add");
-            String page = pageGenerator.getPage("new_Food.html", params);
+            String page = pageGenerator.getPage("list.html", params);
             resp.getWriter().write(page);
         } else {
             resp.sendRedirect("/");
@@ -61,9 +60,8 @@ public class AddFoodServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         try {
             Food food = getFoodFromRequest(req);
-//            foodService.create(food);
             foodService.addFood(food);
-            resp.sendRedirect("/main.html");
+            resp.sendRedirect("/main");
             System.out.println("AddDoPost" + food);
         } catch (Exception e) {
             String error = "<div>Your food not been added</div>";

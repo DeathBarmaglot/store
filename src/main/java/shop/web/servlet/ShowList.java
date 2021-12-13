@@ -40,15 +40,16 @@ public class ShowList extends HttpServlet {
         params.put("foods", foods);
         params.put("taskType", taskType);
 
-        resp.getWriter().write(pageGenerator.getPage("_list.html", params));
+        resp.getWriter().write(pageGenerator.getPage("list.html", params));
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+
         try {
             Food food = getFoodFromRequest(req);
             foodService.addFood(food);
-            resp.sendRedirect("/list");
+
             System.out.println("AddDoPost" + food);
         } catch (Exception e) {
             String error = "<div>Your food not been added</div>";
@@ -56,6 +57,17 @@ public class ShowList extends HttpServlet {
             String page = pageGenerator.getPage("list.html", param);
             resp.getWriter().write(page);
         }
+
+        PageGenerator pageGenerator = PageGenerator.instance();
+        HashMap<String, Object> params = new HashMap<>();
+        try {
+            params.put("foods", foodService.findAllFood());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        String page = pageGenerator.getPage("list.html", params);
+        resp.getWriter().write(page);
+
     }
 
     private List<Food> getFood(HttpServletRequest req) throws SQLException {
