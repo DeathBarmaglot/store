@@ -10,7 +10,7 @@ public interface UserDao {
 
     List<User> findUserByName(String name) throws SQLException;
 
-    boolean isUserExists(String name);
+    boolean isUserExists(String email);
 
     void addUser(User user)throws SQLException;
 

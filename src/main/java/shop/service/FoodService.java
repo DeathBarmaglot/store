@@ -26,9 +26,24 @@ public class FoodService {
         System.out.println("Food added");
     }
 
+    public void editFood(Food food) throws SQLException {
+        foodDao.editFood(food);
+        System.out.println("Food edited " + food);
+    }
+
+    public void createFood() throws SQLException {
+        foodDao.createFood();
+        System.out.println("Init DB foods");
+    }
+
+    public void removeFood(int id) throws SQLException {
+        foodDao.removeFood(id);
+        System.out.println("Food remove");
+    }
+
     public List<Food> findFoodByName(String name){
         List<Food> foodList = foodDao.findFoodByName(name);
-        System.out.println(("Obtain" + name + foodList));
+        System.out.println(("Fetch" + name + foodList));
         return foodList;
     }
 }

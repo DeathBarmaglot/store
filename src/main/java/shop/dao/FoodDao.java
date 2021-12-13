@@ -16,4 +16,6 @@ public interface FoodDao {
     void removeFood(int id) throws SQLException;
 
     List<Food> findFoodByName(String name);
+
+    void createFood();
 }

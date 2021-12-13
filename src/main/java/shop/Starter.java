@@ -20,12 +20,12 @@ public class Starter {
         FoodService foodService = new FoodService(jdbcFoodDao);
 
         JdbcUserDao jdbcUserDao = new JdbcUserDao();
-        FoodService jdbcService = new FoodService(jdbcFoodDao);
-        MainPage mainPage = new MainPage(foodService);
+        UserService userService = new UserService(jdbcUserDao);
+
+        MainPage mainPage = new MainPage(foodService, userService);
         AddFoodServlet addFoodServlet = new AddFoodServlet(foodService);
         EditFoodServlet editFoodServlet = new EditFoodServlet(foodService);
 
-        UserService userService = new UserService(jdbcUserDao);
         List<String> userToken = new ArrayList<>();
 
         LogInServlet logInServlet =  new LogInServlet(userService, userToken);
@@ -40,7 +40,7 @@ public class Starter {
         contextHandler.addServlet(new ServletHolder(addFoodServlet), "/add");
         contextHandler.addServlet(new ServletHolder(addFoodServlet), "/product");
         contextHandler.addServlet(new ServletHolder(editFoodServlet), "/edit");
-        //        RemoveFoodServlet removeFoodServlet = new RemoveFoodServlet(foodService);
+
 
         Server server = new Server(9999);
         server.setHandler(contextHandler);
