@@ -1,4 +1,4 @@
-package shop.web.util;
+package shop.web.utils;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;

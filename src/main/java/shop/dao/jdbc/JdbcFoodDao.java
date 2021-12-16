@@ -1,5 +1,10 @@
 package shop.dao.jdbc;
 
+//CREATE TABLE users (name VARCHAR(50), email VARCHAR(50), pwd VARCHAR(50), date DATE);
+//INSERT INTO users (name, email, pwd, date) VALUES ("admin", "qwerty@gmail.com", "admin", 12-12-2021);
+//SELECT id, name, email, pwd FROM users *;
+
+
 import shop.web.entity.Food;
 import shop.dao.FoodDao;
 import shop.dao.jdbc.mapper.FoodMapper;
@@ -12,7 +17,7 @@ import java.util.List;
 public class JdbcFoodDao implements FoodDao {
     private static final FoodMapper FOOD_MAPPER = new FoodMapper();
     private static final String NEW_FOOD_SQL = "CREATE TABLE foods (id SERIAL, name VARCHAR(100), price int, date DATE);";
-    private static final String FOODS_SQL = "SELECT id, name, price, date FROM goods;";
+    private static final String FOODS_SQL = "SELECT id, name, price, date FROM foods;";
     private static final String FIND_FOOD_SQL = "SELECT name, email, pwd FROM users WHERE name =?;";
     private static final String ADD_FOOD_SQL = "INSERT INTO goods (name, price, date) VALUES (?, ?, ?);";
     private static final String EDIT_FOOD_SQL = "UPDATE foods (name, price, date, id) VALUES (?, ?, ?, ?);";

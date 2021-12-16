@@ -1,21 +1,17 @@
 package shop.web.servlet;
 
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import shop.web.entity.Food;
 import shop.service.FoodService;
-import shop.web.util.PageGenerator;
-import shop.web.util.WebUtil;
+import shop.web.utils.PageGenerator;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@WebServlet("/add")
 public class AddFoodServlet extends HttpServlet {
     private final FoodService foodService;
     PageGenerator pageGenerator = PageGenerator.instance();
@@ -33,27 +29,8 @@ public class AddFoodServlet extends HttpServlet {
             resp.sendRedirect("/");
         }
 
-    
-        Cookie[] cookies = req.getCookies();
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("userToken")) {
-                    isAuth = true;
-                    break;
-                }
-            }
-        }
-        if (isAuth) {
-            HashMap<String, Object> params = new HashMap<>();
-            //TODO foodType filter
-            // params.put("foodType", foodType.values());
 
-            resp.sendRedirect("/add");
-            String page = pageGenerator.getPage("list.html", params);
-            resp.getWriter().write(page);
-        } else {
-            resp.sendRedirect("/");
-        }
+
     }
 
     @Override

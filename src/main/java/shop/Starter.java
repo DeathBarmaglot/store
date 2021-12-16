@@ -11,36 +11,20 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 
 import java.util.ArrayList;
-import java.util.List;
+
 
 public class Starter {
     public static void main(String[] args) throws Exception {
-
-        JdbcFoodDao jdbcFoodDao = new JdbcFoodDao();
-        FoodService foodService = new FoodService(jdbcFoodDao);
-
-        JdbcUserDao jdbcUserDao = new JdbcUserDao();
-        UserService userService = new UserService(jdbcUserDao);
-
-        MainPage mainPage = new MainPage(foodService, userService);
-        AddFoodServlet addFoodServlet = new AddFoodServlet(foodService);
-        EditFoodServlet editFoodServlet = new EditFoodServlet(foodService);
-
-        List<String> userToken = new ArrayList<>();
-
-        LogInServlet logInServlet =  new LogInServlet(userService, userToken);
-
-        ShowList showList = new ShowList(foodService);
+        FoodService foodService = new FoodService(new JdbcFoodDao());
+        UserService userService = new UserService(new JdbcUserDao());
 
         ServletContextHandler contextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
 
-        contextHandler.addServlet(new ServletHolder(logInServlet), "/");
-        contextHandler.addServlet(new ServletHolder(showList), "/list");
-        contextHandler.addServlet(new ServletHolder(mainPage), "/main");
-        contextHandler.addServlet(new ServletHolder(addFoodServlet), "/add");
-        contextHandler.addServlet(new ServletHolder(addFoodServlet), "/product");
-        contextHandler.addServlet(new ServletHolder(editFoodServlet), "/edit");
-
+        contextHandler.addServlet(new ServletHolder(new LogInServlet(userService, new ArrayList<>())), "/");
+        contextHandler.addServlet(new ServletHolder(new ShowList(foodService)), "/list");
+        contextHandler.addServlet(new ServletHolder(new MainPage(foodService, userService)), "/main");
+        contextHandler.addServlet(new ServletHolder(new AddFoodServlet(foodService)), "/add");
+        contextHandler.addServlet(new ServletHolder(new EditFoodServlet(foodService)), "/edit");
 
         Server server = new Server(9999);
         server.setHandler(contextHandler);

@@ -18,13 +18,26 @@
        <div class="d-flex justify-content-center">
 <#if isAuth??>
 
-    <form action="/product" method="post">
+    <form action="/add" method="post">
         <button type="submit" class="btn btn-outline-success float-sm-center">Add</button>
     </form>
         <form action="/list" method="get">
         <button type="submit" class="btn btn-outline-primary float-sm-center">List</button>
     </form>
         <#else>
+
+    <form action="/add" method="post">
+        <button type="submit" class="btn btn-outline-success float-sm-center">Add</button>
+    </form>
+        <form action="/list" method="get">
+        <button type="submit" class="btn btn-outline-primary float-sm-center">List</button>
+    </form>
+        <form action="/edit" method="get">
+        <button type="submit" class="btn btn-outline-secondary float-sm-center">Edit</button>
+    </form>
+        <form action="/remove" method="get">
+        <button type="submit" class="btn btn-outline-info float-sm-center">Del</button>
+    </form>
   <nav>
     <div class="container-fluid">
       <a class="btn btn-outline-danger" href="/">Out</a>
@@ -33,6 +46,7 @@
     </div>
 </nav>
 </div>
+
     </#if>
 
     <table class="table">

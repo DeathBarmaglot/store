@@ -1,36 +1,24 @@
 package shop.dao.jdbc;
 
+//CREATE TABLE foods (id SERIAL, name VARCHAR(100), price int, date DATE);
+//INSERT INTO foods (name, price, date) VALUES ("apple", 5, 12-12-2021);
+//SELECT id, name, price, date FROM goods;
+
 import shop.dao.jdbc.mapper.UserMapper;
-import shop.web.entity.Food;
 import shop.web.entity.User;
 import shop.dao.UserDao;
-import shop.dao.jdbc.mapper.FoodMapper;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 public class JdbcUserDao implements UserDao {
-    private static final FoodMapper USER_MAPPER = new FoodMapper();
-    private static final String NEW_USER_SQL = "CREATE TABLE users (id int, name VARCHAR(50), email VARCHAR(50), pwd VARCHAR(50), token VARCHAR(50)  date DATE);";
+    private static final UserMapper USER_MAPPER = new UserMapper();
+    private static final String NEW_USER_SQL = "CREATE TABLE users (id int, name VARCHAR(50), email VARCHAR(50), pwd VARCHAR(50), token VARCHAR(50), date DATE);";
     private static final String ADD_USER_SQL = "INSERT INTO users (id, name, email, pwd, token, date) VALUES (?, ?, ?, ?, ?, ?);";
     private static final String FIND_USER_SQL = "SELECT id, name, email, pwd FROM users WHERE name =?;";
     private static final String FIND_USERS_SQL = "SELECT id, name, email, pwd FROM users *;";
     private static final String REMOVE_USER_SQL = "DELETE FROM users (id) VALUES (?);";
-
-    @Override
-    public void createFood() {
-        try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(NEW_USER_SQL)) {
-            preparedStatement.executeUpdate();
-            ResultSet resultSet = preparedStatement.executeQuery();
-            System.out.println(resultSet);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
 
     @Override
     public void removeUser(int id) throws SQLException {
@@ -53,8 +41,9 @@ public class JdbcUserDao implements UserDao {
              ResultSet resultSet = preparedStatement.executeQuery();
         ) {
             List<User> users = new ArrayList<>();
+            System.out.println(users);
             while (resultSet.next()) {
-                User user = USER_MAPPER.mapRow(resultSet).getName();
+                User user = USER_MAPPER.mapRow(resultSet);
                 users.add(user);
             }
             return users;
@@ -92,12 +81,11 @@ public class JdbcUserDao implements UserDao {
     public void addUser(User user) {
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(ADD_USER_SQL + " ")) {
-            preparedStatement.setString(1, user.getId());
-            preparedStatement.setString(2, user.getName());
-            preparedStatement.setString(3, user.getEmail());
-            preparedStatement.setString(4, user.getPwd());
-            preparedStatement.setString(5, UUID.randomUUID().toString());
-            preparedStatement.setTimestamp(6, Timestamp.valueOf(user.getDate()));
+            preparedStatement.setString(1, user.getName());
+            preparedStatement.setString(2, user.getEmail());
+            preparedStatement.setString(3, user.getPwd());
+            preparedStatement.setString(4, UUID.randomUUID().toString());
+            preparedStatement.setTimestamp(5, Timestamp.valueOf(user.getDate()));
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -105,9 +93,9 @@ public class JdbcUserDao implements UserDao {
     }
 
     @Override
-    public List<User> findAllUsers() {
+    public List<String> findAllUsers() {
 
-        List<User> users = new ArrayList<>();
+        List<String> users = new ArrayList<>();
 
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(FIND_USERS_SQL);
@@ -115,7 +103,7 @@ public class JdbcUserDao implements UserDao {
         ) {
             while (resultSet.next()) {
 
-                User user = USER_MAPPER.mapRow(resultSet).getName();
+                String user = USER_MAPPER.mapRow(resultSet).getName();
                 users.add(user);
                 System.out.println(user);
             }

@@ -1,8 +1,9 @@
-package shop.web.util;
+package shop.web.utils;
 
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.Builder;
 import shop.web.entity.Food;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Builder
 public class WebUtil {
