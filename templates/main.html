@@ -8,43 +8,30 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <title>List</title>
+    <title>Main</title>
 </head>
  
 <body>
 
     <h2 align="center">List of products</h2>
 
-       <div class="d-flex justify-content-center">
 <#if isAuth??>
 
-    <form action="/add" method="post">
-        <button type="submit" class="btn btn-outline-success float-sm-center">Add</button>
-    </form>
-        <form action="/list" method="get">
-        <button type="submit" class="btn btn-outline-primary float-sm-center">List</button>
-    </form>
         <#else>
-
+       <div class="d-flex justify-content-center">
     <form action="/add" method="post">
         <button type="submit" class="btn btn-outline-success float-sm-center">Add</button>
+        </form>
+        <form action="/" method="get">
+        <button type="submit" class="btn btn-outline-danger float-sm-center">Out</button>
     </form>
-        <form action="/list" method="get">
-        <button type="submit" class="btn btn-outline-primary float-sm-center">List</button>
-    </form>
-        <form action="/edit" method="get">
-        <button type="submit" class="btn btn-outline-secondary float-sm-center">Edit</button>
-    </form>
-        <form action="/remove" method="get">
-        <button type="submit" class="btn btn-outline-info float-sm-center">Del</button>
-    </form>
-  <nav>
+  <!-- <nav>
     <div class="container-fluid">
       <a class="btn btn-outline-danger" href="/">Out</a>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
        </div>
     </div>
-</nav>
+</nav> -->
 </div>
 
     </#if>
@@ -53,19 +40,23 @@
  
         <tr>
             <#list foods as food>
-            <th>${food.id}</th>
             <td>${food.name}</td>
+            <td>${food.comment}</td>
             <td>${food.price}</td>
-            <td>${food.date}</td>
  
-            <#if isAuth??>
+		<td>
+		    <form action="/edit" method="get/${food.id}">
+			    <button type="submit" class="btn btn-outline-secondary float-sm-center">Edit</button>
+		    </form>
+		</td> 
+		<td>
+	        <form action="/remove" method="get">
+		        <button type="submit" class="btn btn-outline-info float-sm-center" value =${food.id}>Del</button>
+		    </form>
+		</td> 
 
-<td>        <form action="/edit" method="get">
-        <button type="submit" class="btn btn-outline-secondary float-sm-center">Edit</button>
-    </form></td>
-        	<td><form action="/remove" method="get">
-        <button type="submit" class="btn btn-outline-info float-sm-center">Del</button>
-    </form></td>
+
+                <#if isAuth??>
 
             </#if>
         </tr>

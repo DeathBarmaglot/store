@@ -1,3 +1,5 @@
+//TODO //Detail: Key (id)=(0) already exists.
+
 package shop.web.servlet;
 
 import shop.web.entity.Food;
@@ -43,6 +45,7 @@ public class EditFoodServlet extends HttpServlet {
     private Food getFoodFromRequest(HttpServletRequest req) {
         return Food.builder()
                 .name(req.getParameter("name"))
+                .comment(req.getParameter("comment"))
                 .price(Integer.parseInt(req.getParameter("price")))
                 .build();
     }

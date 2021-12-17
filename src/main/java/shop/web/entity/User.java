@@ -11,10 +11,8 @@ import java.time.LocalDateTime;
 @Builder
 @ToString
 public class User {
-//    private String id;
     private String name;
     private String email;
     private String pwd;
-    private String token;
     private LocalDateTime date;
 }

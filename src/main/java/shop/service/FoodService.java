@@ -5,6 +5,7 @@ import shop.dao.FoodDao;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 public class FoodService {
     private final FoodDao foodDao;
@@ -22,8 +23,17 @@ public class FoodService {
      public void addFood(Food food) throws SQLException {
         LocalDateTime localDateTime = LocalDateTime.now();
         food.setDate(localDateTime);
+        food.setId(generateId());
         foodDao.addFood(food);
-        System.out.println("Food added");
+    }
+
+    private int generateId() {
+        UUID idOne = UUID.randomUUID();
+        String str=""+idOne;
+        int uid=str.hashCode();
+        String filterStr=""+uid;
+        str=filterStr.replaceAll("-", "");
+        return Integer.parseInt(str);
     }
 
     public void editFood(Food food) throws SQLException {
@@ -31,12 +41,7 @@ public class FoodService {
         System.out.println("Food edited " + food);
     }
 
-    public void createFood() throws SQLException {
-        foodDao.createFood();
-        System.out.println("Init DB foods");
-    }
-
-    public void removeFood(int id) throws SQLException {
+     public void removeFood(int id) throws SQLException {
         foodDao.removeFood(id);
         System.out.println("Food remove");
     }
@@ -44,6 +49,12 @@ public class FoodService {
     public List<Food> findFoodByName(String name){
         List<Food> foodList = foodDao.findFoodByName(name);
         System.out.println(("Fetch" + name + foodList));
+        return foodList;
+    }
+
+    public List<Food> findFoodById(int id){
+        List<Food> foodList = foodDao.findFoodById(id);
+        System.out.println(("id " + id + foodList));
         return foodList;
     }
 }

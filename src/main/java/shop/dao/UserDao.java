@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface UserDao {
 
-    void removeUser(int id) throws SQLException;
+    void removeUser(String email) throws SQLException;
 
     List<User> findUserByName(String name) throws SQLException;
 

@@ -51,6 +51,7 @@ public class AddFoodServlet extends HttpServlet {
     private Food getFoodFromRequest(HttpServletRequest req) {
         return Food.builder()
                 .name(req.getParameter("name"))
+                .comment(req.getParameter("comment"))
                 .price(Integer.parseInt(req.getParameter("price")))
                 .build();
     }

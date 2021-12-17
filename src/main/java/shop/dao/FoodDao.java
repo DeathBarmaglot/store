@@ -17,5 +17,5 @@ public interface FoodDao {
 
     List<Food> findFoodByName(String name);
 
-    void createFood();
+    List<Food> findFoodById(int id);
 }

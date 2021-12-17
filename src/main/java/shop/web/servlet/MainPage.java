@@ -1,10 +1,12 @@
 package shop.web.servlet;
 
+import lombok.SneakyThrows;
 import shop.service.UserService;
 import shop.web.entity.Food;
 import shop.service.FoodService;
 import shop.web.utils.PageGenerator;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,32 +24,46 @@ public class MainPage extends HttpServlet {
         this.userService = userService;
     }
 
+    @SneakyThrows
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-
-        List<Food> foods = null;
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)  {
         PageGenerator pageGenerator = PageGenerator.instance();
 
-        //TODO
-        // getFood(req);
-
+            List<Food> foods = null;
+            try {
+                foods = foodService.findAllFood();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
 //        TaskType[] taskType = TaskType.values();
-        if (req.getParameter("name") != null) {
-            foods = foodService.findFoodByName(req.getParameter("foods"));
-        }
-        try {
-            foods = foodService.findAllFood();
-        } catch (SQLException e) {
-            e.printStackTrace();
+
+            HashMap<String, Object> params = new HashMap<>();
+            params.put("foods", foods);
+//        params.put("taskType", taskType);
+//        System.out.println(params);
+
+
+        resp.getWriter().write(pageGenerator.getPage("main.html", params));
         }
 
-        HashMap<String, Object> params = new HashMap<>();
-        params.put("foods", foods);
-        System.out.println("main get " + foods);
-        String page = pageGenerator.getPage("list_food.html", params);
-        resp.getWriter().write(page);
-    }
-
+////    @Override
+////    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+////        try {
+////            Food food = getFoodFromRequest(req);
+////            foodService.addFood(food);
+////
+//////            resp.sendRedirect("");
+////        } catch (Exception e) {
+////            PageGenerator pageGenerator = PageGenerator.instance();
+////            String page = pageGenerator.getPage("remove.html", new HashMap<>());
+////            resp.getWriter().write(page);
+////            resp.getWriter().write("<div>Your food not been changed</div>");
+////        }
+//    }
+//    private Food getFoodFromRequest(HttpServletRequest req) {
+//        return Food.builder()
+//                .id(Integer.parseInt(req.getParameter("id")))
+//                .build();
+//    }
 }
-
 

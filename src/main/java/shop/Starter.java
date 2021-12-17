@@ -21,7 +21,7 @@ public class Starter {
         ServletContextHandler contextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
 
         contextHandler.addServlet(new ServletHolder(new LogInServlet(userService, new ArrayList<>())), "/");
-        contextHandler.addServlet(new ServletHolder(new ShowList(foodService)), "/list");
+        contextHandler.addServlet(new ServletHolder(new RemoveServlet(foodService)), "/remove");
         contextHandler.addServlet(new ServletHolder(new MainPage(foodService, userService)), "/main");
         contextHandler.addServlet(new ServletHolder(new AddFoodServlet(foodService)), "/add");
         contextHandler.addServlet(new ServletHolder(new EditFoodServlet(foodService)), "/edit");

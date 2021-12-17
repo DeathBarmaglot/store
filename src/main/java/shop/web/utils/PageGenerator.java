@@ -33,6 +33,7 @@ public class PageGenerator {
 
     public String getPage(String filename, Map<String, Object> data) {
         Writer stream = new StringWriter();
+
         try {
             Template template = configuration.getTemplate(HTML_DIR + File.separator + filename);
             template.process(data, stream);

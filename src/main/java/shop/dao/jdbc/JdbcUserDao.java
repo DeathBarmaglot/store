@@ -1,12 +1,14 @@
 package shop.dao.jdbc;
 
-//CREATE TABLE foods (id SERIAL, name VARCHAR(100), price int, date DATE);
-//INSERT INTO foods (name, price, date) VALUES ("apple", 5, 12-12-2021);
-//SELECT id, name, price, date FROM goods;
+//CREATE TABLE users (name VARCHAR(50), email VARCHAR(50), pwd VARCHAR(50), date DATE);
+//INSERT INTO users (name, email, pwd, date) VALUES ("admin", "qwerty@gmail.com", "admin", 12-12-2021);
+//SELECT name, email, pwd FROM users *;
+
 
 import shop.dao.jdbc.mapper.UserMapper;
 import shop.web.entity.User;
 import shop.dao.UserDao;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,27 +16,29 @@ import java.util.UUID;
 
 public class JdbcUserDao implements UserDao {
     private static final UserMapper USER_MAPPER = new UserMapper();
-    private static final String NEW_USER_SQL = "CREATE TABLE users (id int, name VARCHAR(50), email VARCHAR(50), pwd VARCHAR(50), token VARCHAR(50), date DATE);";
-    private static final String ADD_USER_SQL = "INSERT INTO users (id, name, email, pwd, token, date) VALUES (?, ?, ?, ?, ?, ?);";
-    private static final String FIND_USER_SQL = "SELECT id, name, email, pwd FROM users WHERE name =?;";
-    private static final String FIND_USERS_SQL = "SELECT id, name, email, pwd FROM users *;";
-    private static final String REMOVE_USER_SQL = "DELETE FROM users (id) VALUES (?);";
+    private static final String NEW_USER_SQL = "CREATE TABLE users (name VARCHAR(50), email VARCHAR(50), pwd VARCHAR(50), date DATE);";
+    private static final String ADD_USER_SQL = "INSERT INTO users (name, email, pwd, date) VALUES (?, ?, ?, ?);";
+    private static final String FIND_USER_SQL = "SELECT name, email, pwd FROM users WHERE email =?;";
+    private static final String FIND_USERS_SQL = "SELECT name, email, pwd FROM users *;";
+    private static final String REMOVE_USER_SQL = "DELETE FROM users (email) VALUES (?);";
+
 
     @Override
-    public void removeUser(int id) throws SQLException {
+    public void removeUser(String email) throws SQLException {
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(REMOVE_USER_SQL + " ")) {
-            preparedStatement.setInt(1, id);
+            preparedStatement.setString(1, email);
             preparedStatement.executeUpdate();
             ResultSet resultSet = preparedStatement.executeQuery();
-            System.out.println(resultSet);
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
     }
 
     @Override
-    public List<User> findUserByName(String name) throws SQLException  {
+    public List<User> findUserByName(String name) throws SQLException {
 
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(FIND_USER_SQL);
@@ -57,7 +61,6 @@ public class JdbcUserDao implements UserDao {
     public boolean isUserExists(String user) {
         // List<User> users = new findAllUsers();
         //TODO isUserExists -> findAllUsers
-
 
         try {
             Connection connection = getConnection();
@@ -84,8 +87,7 @@ public class JdbcUserDao implements UserDao {
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, user.getEmail());
             preparedStatement.setString(3, user.getPwd());
-            preparedStatement.setString(4, UUID.randomUUID().toString());
-            preparedStatement.setTimestamp(5, Timestamp.valueOf(user.getDate()));
+            preparedStatement.setTimestamp(4, Timestamp.valueOf(user.getDate()));
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
