@@ -29,8 +29,6 @@ public class AddFoodServlet extends HttpServlet {
             resp.sendRedirect("/");
         }
 
-
-
     }
 
     @Override
@@ -39,7 +37,7 @@ public class AddFoodServlet extends HttpServlet {
             Food food = getFoodFromRequest(req);
             foodService.addFood(food);
             resp.sendRedirect("/main");
-            System.out.println("AddDoPost" + food);
+//            System.out.println("AddDoPost" + food);
         } catch (Exception e) {
             String error = "<div>Your food not been added</div>";
             Map<String, Object> param = Map.of("error", error);

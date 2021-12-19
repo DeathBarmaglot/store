@@ -1,6 +1,7 @@
 package shop.web.servlet;
 
 import lombok.SneakyThrows;
+import org.apache.avro.mapred.tether.TaskType;
 import shop.service.UserService;
 import shop.web.entity.Food;
 import shop.service.FoodService;
@@ -34,15 +35,13 @@ public class MainPage extends HttpServlet {
                 foods = foodService.findAllFood();
             } catch (SQLException e) {
                 e.printStackTrace();
+//                foodService.createFood();
             }
-//        TaskType[] taskType = TaskType.values();
+        TaskType[] taskType = TaskType.values();
 
             HashMap<String, Object> params = new HashMap<>();
             params.put("foods", foods);
-//        params.put("taskType", taskType);
-//        System.out.println(params);
-
-
+        params.put("taskType", taskType);
         resp.getWriter().write(pageGenerator.getPage("main.html", params));
         }
 

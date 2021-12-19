@@ -4,6 +4,7 @@ import shop.web.entity.Food;
 import shop.dao.FoodDao;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.UUID;
 
@@ -21,15 +22,21 @@ public class FoodService {
     }
 
      public void addFood(Food food) throws SQLException {
-        LocalDateTime localDateTime = LocalDateTime.now();
+        LocalDateTime localDateTime = LocalDateTime.of(2014, 5, 29, 18, 41, 16);
         food.setDate(localDateTime);
         food.setId(generateId());
         foodDao.addFood(food);
     }
 
+     public void createFood(Food food) throws SQLException {
+         food.setDate(LocalDateTime.now());
+         food.setId(generateId());
+         foodDao.addFood(food);
+    }
+
     private int generateId() {
-        UUID idOne = UUID.randomUUID();
-        String str=""+idOne;
+        UUID id = UUID.randomUUID();
+        String str=""+id;
         int uid=str.hashCode();
         String filterStr=""+uid;
         str=filterStr.replaceAll("-", "");
@@ -37,6 +44,8 @@ public class FoodService {
     }
 
     public void editFood(Food food) throws SQLException {
+        food.setDate(LocalDateTime.of(2014, 5, 29, 18, 41, 16));
+        food.setId(food.getId());
         foodDao.editFood(food);
         System.out.println("Food edited " + food);
     }

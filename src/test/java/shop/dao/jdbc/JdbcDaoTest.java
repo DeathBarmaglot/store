@@ -3,7 +3,7 @@
 
 //isFoodExists
 //The column name date was not found in this ResultSet.
-//
+// ERROR: duplicate key value violates unique constraint "foods_pkey"
 //System.out.println(resultSet);
 //add System.out.println(resultSet);
 //user login

@@ -9,6 +9,8 @@ public interface FoodDao {
 
     List<Food> findAllFood() throws SQLException;
 
+    void createFood() throws SQLException;
+
     void addFood(Food food) throws SQLException;
 
     void editFood(Food food) throws SQLException;
@@ -18,4 +20,5 @@ public interface FoodDao {
     List<Food> findFoodByName(String name);
 
     List<Food> findFoodById(int id);
+
 }
