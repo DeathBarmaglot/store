@@ -1,7 +1,5 @@
 package shop.web.servlet;
 
-import lombok.SneakyThrows;
-import org.apache.avro.mapred.tether.TaskType;
 import shop.service.UserService;
 import shop.web.entity.Food;
 import shop.service.FoodService;
@@ -25,44 +23,36 @@ public class MainPage extends HttpServlet {
         this.userService = userService;
     }
 
-    @SneakyThrows
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp)  {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         PageGenerator pageGenerator = PageGenerator.instance();
 
-            List<Food> foods = null;
-            try {
-                foods = foodService.findAllFood();
-            } catch (SQLException e) {
-                e.printStackTrace();
+        List<Food> foods = null;
+        try {
+            foods = foodService.findAllFood();
+//            System.out.println(foods); //list all food
+        } catch (SQLException e) {
+            e.printStackTrace();
 //                foodService.createFood();
-            }
-        TaskType[] taskType = TaskType.values();
-
-            HashMap<String, Object> params = new HashMap<>();
-            params.put("foods", foods);
-        params.put("taskType", taskType);
-        resp.getWriter().write(pageGenerator.getPage("main.html", params));
         }
+//        TaskType[] taskType = TaskType.values();
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("foods", foods);
+//        params.put("taskType", taskType);
+        resp.getWriter().write(pageGenerator.getPage("main.html", params));
+    }
 
-////    @Override
-////    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-////        try {
-////            Food food = getFoodFromRequest(req);
-////            foodService.addFood(food);
-////
-//////            resp.sendRedirect("");
-////        } catch (Exception e) {
-////            PageGenerator pageGenerator = PageGenerator.instance();
-////            String page = pageGenerator.getPage("remove.html", new HashMap<>());
-////            resp.getWriter().write(page);
-////            resp.getWriter().write("<div>Your food not been changed</div>");
-////        }
-//    }
-//    private Food getFoodFromRequest(HttpServletRequest req) {
-//        return Food.builder()
-//                .id(Integer.parseInt(req.getParameter("id")))
-//                .build();
-//    }
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        long id = ((Integer.parseInt(req.getParameter("id")
+                .replaceAll("([\\ud800-\\udbff\\udc00-\\udfff])", ""))));
+        Food food = foodService.findFoodById(id);
+
+        try {
+            foodService.editFood(food);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
 

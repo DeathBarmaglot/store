@@ -2,7 +2,6 @@ package shop.dao.jdbc;
 
 import org.junit.jupiter.api.Test;
 import shop.web.entity.Food;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -11,7 +10,7 @@ import java.sql.Timestamp;
 public class FoodRowMapperTest {
     @Test
     public Food mapRow(ResultSet resultSet) throws SQLException {
-        int id = resultSet.getInt("id");
+        long id = resultSet.getLong("id");
         int price = resultSet.getInt("price");
         String comment = resultSet.getString("comment");
         String name = resultSet.getString("name");

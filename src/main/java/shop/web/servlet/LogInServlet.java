@@ -37,7 +37,7 @@ public class LogInServlet extends HttpServlet {
             Cookie cookie = new Cookie("userToken", userToken);
             resp.addCookie(cookie);
             resp.sendRedirect("/main");
-            System.out.println("Log post" + cookie + " " + userToken);
+//            System.out.println("Log post" + cookie + " " + userToken);
 //        } else {
 //            String error = "<div>Incorrect name or password</div>";
 //            Map<String, Object> param = Map.of("error", error);

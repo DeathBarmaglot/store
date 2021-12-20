@@ -1,6 +1,6 @@
 // TODO 500 Food not found
 // 200  System.out.println(foods);
-
+//System.out.println("AddDoPost" + food);
 //isFoodExists
 //The column name date was not found in this ResultSet.
 // ERROR: duplicate key value violates unique constraint "foods_pkey"
@@ -8,7 +8,7 @@
 //add System.out.println(resultSet);
 //user login
 // FoodService(FoodDao foodDao)
-// List<Food> findFoodById(int id)
+// List<Food> findFoodById(long id)
 //System.out.println("addFood"+ resultSet);
 //mapRow(ResultSet resultSet);
 
@@ -44,37 +44,37 @@ class JdbcDaoTest {
     }
 
     @Test
-    public boolean isFoodExists(Food food){
+    public boolean testIsFoodExists(Food food){
         return false;
     }
 
     @Test
-    public List<Food> findAllFood(){
+    public List<Food> testFindAllFood(){
         return null;
     }
 
     @Test
-    public void addFood(Food food){
+    public void testAddFood(Food food){
 
     }
 
     @Test
-    public void editFood(Food food){
+    public void testEditFood(Food food){
 
     }
 
     @Test
-    public void removeFood(int id){
+    public void testRemoveFood(long id){
 
     }
 
 
-    public List<Food> findFoodByName(String name) {
+    public List<Food> testFindFoodByName(String name) {
         return null;
     }
 
 
-    public List<Food> findFoodById(int id) {
+    public List<Food> testFindFoodById(long id) {
         return null;
     }
 

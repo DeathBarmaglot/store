@@ -1,7 +1,6 @@
 package shop.dao.jdbc.mapper;
 
 import shop.web.entity.User;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;

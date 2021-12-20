@@ -13,7 +13,7 @@ public class UserService {
         this.userDao = userDao;
     }
 
-    public List<String> findAllUsers() throws SQLException {
+    public List<String> findAllUsers() {
         List<String> users;
         users = userDao.findAllUsers();
         return users;

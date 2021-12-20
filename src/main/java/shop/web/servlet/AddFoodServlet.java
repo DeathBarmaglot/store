@@ -20,7 +20,7 @@ public class AddFoodServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         //TODO isAuth
 //        String token = getToken(req);
-        boolean isAuth = false; //userService.isAuth(token, userToken);
+        boolean isAuth = true; //userService.isAuth(token, userToken);
         if (isAuth) {
             HashMap<String, Object> params = new HashMap<>();
             String page = pageGenerator.getPage("add.html", params);
@@ -28,7 +28,6 @@ public class AddFoodServlet extends HttpServlet {
         } else {
             resp.sendRedirect("/");
         }
-
     }
 
     @Override
@@ -37,7 +36,6 @@ public class AddFoodServlet extends HttpServlet {
             Food food = getFoodFromRequest(req);
             foodService.addFood(food);
             resp.sendRedirect("/main");
-//            System.out.println("AddDoPost" + food);
         } catch (Exception e) {
             String error = "<div>Your food not been added</div>";
             Map<String, Object> param = Map.of("error", error);

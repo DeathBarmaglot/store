@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Builder
 @ToString
 public class Food {
-    private int id;
+    private long id;
     private String name;
     private String comment;
     private int price;

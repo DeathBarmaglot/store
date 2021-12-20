@@ -15,21 +15,25 @@
 
     <h2 align="center">You're shure</h2>
 
-       <div class="d-flex justify-content-center">
-    <form action="/remove" method="post">
+
+    <table class="table">
+            <#list foods as food>
+                      <div class="d-flex justify-content-center">
+    <form action="/remove/${food.id}" method="post">
         <button type="submit" class="btn btn-outline-danger float-sm-center">Yes</button>
     </form>
         <form action="/main" method="get">
         <button type="submit" class="btn btn-outline-primary float-sm-center">No</button>
     </form>
-<!--   <nav>
-    <div class="container-fluid">
-      <a class="btn btn-outline-danger" href="/">Out</a>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-       </div>
     </div>
-</nav>
- --></div>
+
+           <#if isAuth??>
+
+            </#if>
+        </#list>
+    </table>
+
+
 
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
