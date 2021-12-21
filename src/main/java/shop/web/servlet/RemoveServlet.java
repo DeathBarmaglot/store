@@ -22,7 +22,6 @@ public class RemoveServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        System.out.println((req.getParameter("id").replaceAll("([\\ud800-\\udbff\\udc00-\\udfff])", "")));
         try {
             foodService.removeFood(Integer.parseInt(req.getParameter("id").replaceAll("([\\ud800-\\udbff\\udc00-\\udfff])", "")));
             resp.sendRedirect("/main");

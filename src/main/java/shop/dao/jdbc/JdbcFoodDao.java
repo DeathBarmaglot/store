@@ -13,50 +13,19 @@ public class JdbcFoodDao implements FoodDao {
     private static final String ALL_FOODS_SQL = "SELECT id, name, comment, price, date FROM foods;";
     private static final String FIND_FOOD_SQL = "SELECT name FROM foods WHERE name =?;";
     private static final String FIND_FOOD_ID_SQL = "SELECT id, name, comment, price, date FROM foods WHERE id =?;";
-    private static final String ADD_FOOD_SQL = "INSERT INTO foods (id, name, comment, price, date) VALUES (?, ?, ?, ?, ?);";
-    private static final String EDIT_FOOD_SQL = "UPDATE foods (name, comment, price, date, id) VALUES (?, ?, ?, ?, ?);";
+    private static final String ADD_FOOD_SQL = "INSERT INTO foods (name, comment, price, date, id) VALUES (?, ?, ?, ?, ?);";
+    private static final String EDIT_FOOD_SQL = "UPDATE foods SET name =?, comment =?, price =?, date=? WHERE id =?";
     private static final String REMOVE_FOOD_SQL = "DELETE FROM foods WHERE id =?;";
 
     @Override
     public void addFood(Food food) {
-        try (Connection conn = getConnection();
-             PreparedStatement preparedStatement = conn.prepareStatement(ADD_FOOD_SQL + " ")) {
-            preparedStatement.setLong(1, food.getId());
-            preparedStatement.setString(2, food.getName());
-            preparedStatement.setString(3, food.getComment());
-            preparedStatement.setInt(4, food.getPrice());
-            preparedStatement.setTimestamp(5, Timestamp.valueOf(food.getDate()));
-//            preparedStatement.executeUpdate();
-            ResultSet resultSet = preparedStatement.executeQuery();
-            System.out.println("addFood" + resultSet);
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        promise(food, ADD_FOOD_SQL);
     }
+
 
     @Override
     public void editFood(Food food) {
-
-        //        for (Food foo: foods) {
-//            if (food.getId() == foo.getId()){
-//                foo.setName(food.getName());
-//                foo.setPrice(food.getPrice());
-//            }
-//        }
-        try (Connection conn = getConnection();
-             PreparedStatement preparedStatement = conn.prepareStatement(EDIT_FOOD_SQL + " ")) {
-            preparedStatement.setLong(1, food.getId());
-            preparedStatement.setString(2, food.getName());
-            preparedStatement.setString(3, food.getComment());
-            preparedStatement.setInt(4, food.getPrice());
-            preparedStatement.setTimestamp(5, Timestamp.valueOf(food.getDate()));
-//            preparedStatement.executeUpdate();
-            ResultSet resultSet = preparedStatement.executeQuery();
-            System.out.println("editFood" + resultSet);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        promise(food, EDIT_FOOD_SQL);
     }
 
     @Override
@@ -64,9 +33,9 @@ public class JdbcFoodDao implements FoodDao {
         try (Connection conn = getConnection();
              PreparedStatement preparedStatement = conn.prepareStatement(REMOVE_FOOD_SQL + " ")) {
             preparedStatement.setLong(1, id);
-//            preparedStatement.executeUpdate();
-            ResultSet resultSet = preparedStatement.executeQuery();
-            System.out.println("removeFood" + resultSet);
+            preparedStatement.executeUpdate();
+//            ResultSet resultSet = preparedStatement.executeQuery();
+//            System.out.println("removeFood" + resultSet);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -78,11 +47,11 @@ public class JdbcFoodDao implements FoodDao {
             Connection conn = getConnection();
             PreparedStatement preparedStatement = conn.prepareStatement(FIND_FOOD_ID_SQL);
             preparedStatement.setString(1, food.getName());
-//            preparedStatement.executeUpdate();
-            ResultSet resultSet = preparedStatement.executeQuery();
-            System.out.println("findFood" + resultSet.getString(2));
+            preparedStatement.executeUpdate();
+//            ResultSet resultSet = preparedStatement.executeQuery();
+//            System.out.println("findFood" + resultSet.getString(2));
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println(e);
         }
         return false;
     }
@@ -136,17 +105,32 @@ public class JdbcFoodDao implements FoodDao {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 food = FOOD_MAPPER.mapRow(resultSet);
-//                System.out.println(food);
+                System.out.println("findFoodById " + food);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println(e);
             throw new RuntimeException();
         }
         return food;
     }
-    
+
     private Connection getConnection() throws SQLException {
         final String DB_URL = "jdbc:postgresql://192.168.31.249:5432/store";
         return DriverManager.getConnection(DB_URL, "admin", "root");
     }
+
+    private void promise(Food food, String sql) {
+        try (Connection conn = getConnection();
+             PreparedStatement preparedStatement = conn.prepareStatement(sql + " ")) {
+            preparedStatement.setString(1, food.getName());
+            preparedStatement.setString(2, food.getComment());
+            preparedStatement.setInt(3, food.getPrice());
+            preparedStatement.setTimestamp(4, Timestamp.valueOf(food.getDate()));
+            preparedStatement.setLong(5, food.getId());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
 }

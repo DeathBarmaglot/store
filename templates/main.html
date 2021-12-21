@@ -12,37 +12,31 @@
  
 <body>
 
-    <table class="table">
-        <tr class="d-flex justify-content-center">
-            <td><h2>List of products</h2></td>
-            <td>
-                <form action="/add" method="get">
-                    <button type="submit" class="btn btn-outline-success float-sm-center">Add</button>
-                    <a class="btn btn-outline-danger" href="/">Out</a>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent"></div>
-                </form>
-            </td> 
-        </tr>
-    </table>
-
+<div class="d-flex justify-content-center">
+    <h2>List of products</h2></td>
+    <form action="/add" method="get">
+        <button type="submit" class="btn btn-success mx-4">Add</button>
+    <a class="btn btn-primary" href="/">LogIn</a>
+    </form>
+</div>
     <table class="table">
         <tr>
             <#list foods as food>
-
-
-            <td><input style="border: none;" type="text" onclick="" name="name" value="${food.name}"/> </td>
+        
+        <form action="/edit" method="post">
+            <td><input style="border: none;" type="hidden" name="id" value="${food.id?string.computer}"/> </td>
+            <td><input style="border: none;" type="text" name="name" value="${food.name}"/> </td>
             <td><input style="border: none;" type="text" name="comment" value="${food.comment}"/> </td>
             <td><input style="border: none;" type="text" pattern="\d*" name="price" value="${food.price?string.computer}"/> </td>
-            
-    		<td>
-    		    <form action="/main?id=${food.id?string.computer}" method="post">
-    			    <button type="submit" class="btn btn-outline-secondary float-sm-right">Edit</button>
-    		    </form>
-    		</td> 
+            <td><input style="border: none;" type="text" name="date" value="${food.date?datetime.iso?string('dd-MM-yyyy')}"/> </td>
+    		<td><button type="submit" class="btn btn-outline-success float-sm-right">Save</button></td> 
+    	</form>
+
     		<td>
     	        <form action="/remove?id=${food.id?string.computer}" method="post">
-    		        <button type="submit" class="btn btn-outline-info float-sm-center">Del</button>
+    		      <button type="submit" class="btn btn-outline-danger float-sm-center">Remove</button>
     		    </form>
+                <td> </td> 
     		</td> 
 
             <#if isAuth??>

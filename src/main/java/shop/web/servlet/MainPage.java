@@ -17,6 +17,7 @@ import java.util.List;
 public class MainPage extends HttpServlet {
     private final FoodService foodService;
     private final UserService userService;
+    PageGenerator pageGenerator = PageGenerator.instance();
 
     public MainPage(FoodService foodService, UserService userService) {
         this.foodService = foodService;
@@ -25,7 +26,6 @@ public class MainPage extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        PageGenerator pageGenerator = PageGenerator.instance();
 
         List<Food> foods = null;
         try {
@@ -42,17 +42,33 @@ public class MainPage extends HttpServlet {
         resp.getWriter().write(pageGenerator.getPage("main.html", params));
     }
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        long id = ((Integer.parseInt(req.getParameter("id")
-                .replaceAll("([\\ud800-\\udbff\\udc00-\\udfff])", ""))));
-        Food food = foodService.findFoodById(id);
+//    @Override
+//    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+//
+//        Food food = getFoodFromRequest(req);
+//        System.out.println(food.getId());
+//
+//        try {
+//            foodService.editFood(food);
+//            HashMap<String, Object> param = new HashMap<>();
+//            String page = pageGenerator.getPage("main.html", param);
+//            resp.getWriter().write(page);
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        resp.sendRedirect("/main");
+//        System.out.println(food);
+//    }
+//
+//    private Food getFoodFromRequest(HttpServletRequest req) {
+//        Food build = Food.builder()
+//                .id(Integer.parseInt(req.getParameter("id")))
+//                .name(req.getParameter("name"))
+//                .comment(req.getParameter("comment"))
+//                .price(Integer.parseInt(req.getParameter("price")))
+//                .build();
+//        return build;
+//    }
 
-        try {
-            foodService.editFood(food);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 }
 

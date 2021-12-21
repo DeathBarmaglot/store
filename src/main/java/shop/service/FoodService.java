@@ -21,8 +21,7 @@ public class FoodService {
     }
 
      public void addFood(Food food) throws SQLException {
-        LocalDateTime localDateTime = LocalDateTime.of(2014, 5, 29, 18, 41, 16);
-        food.setDate(localDateTime);
+        food.setDate(LocalDateTime.now());
         food.setId(generateId());
         foodDao.addFood(food);
     }
@@ -37,10 +36,12 @@ public class FoodService {
     }
 
     public void editFood(Food food) throws SQLException {
-        food.setDate(LocalDateTime.of(2014, 5, 29, 18, 41, 16));
-        food.setId(food.getId());
+        food.setDate(LocalDateTime.now());
+        food.setPrice(food.getPrice());
+        food.setName(food.getName());
+        food.setComment(food.getComment());
         foodDao.editFood(food);
-        System.out.println("Food edited " + food);
+//        System.out.println("Food edited " + food);
     }
 
      public void removeFood(long id) throws SQLException {

@@ -13,7 +13,6 @@
 //mapRow(ResultSet resultSet);
 
 
-
 package shop.dao.jdbc;
 
 import org.junit.jupiter.api.Test;
@@ -55,6 +54,8 @@ class JdbcDaoTest {
 
     @Test
     public void testAddFood(Food food){
+//            ResultSet resultSet = preparedStatement.executeQuery();
+//            System.out.println("addFood" + resultSet);
 
     }
 
