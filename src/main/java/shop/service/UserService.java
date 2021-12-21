@@ -26,9 +26,9 @@ public class UserService {
         System.out.println("User added " + user);
     }
 
-    public List<User> findUserByName(String name) throws SQLException {
-        List<User> userList = userDao.findUserByName(name);
-        System.out.println(("Obtain" + name + userList));
+    public List<User> isUserExists(String email) throws SQLException {
+        List<User> userList = userDao.findUserByEmail(email);
+        System.out.println(("Obtain" + email + userList));
         return userList;
     }
 }

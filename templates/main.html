@@ -24,11 +24,11 @@
             <#list foods as food>
         
         <form action="/edit" method="post">
+            <td><input style="border: none;" type="text" name="date" value="${food.date?datetime.iso?string('dd.MM.yy')}"/> </td>
             <td><input style="border: none;" type="hidden" name="id" value="${food.id?string.computer}"/> </td>
             <td><input style="border: none;" type="text" name="name" value="${food.name}"/> </td>
             <td><input style="border: none;" type="text" name="comment" value="${food.comment}"/> </td>
             <td><input style="border: none;" type="text" pattern="\d*" name="price" value="${food.price?string.computer}"/> </td>
-            <td><input style="border: none;" type="text" name="date" value="${food.date?datetime.iso?string('dd-MM-yyyy')}"/> </td>
     		<td><button type="submit" class="btn btn-outline-success float-sm-right">Save</button></td> 
     	</form>
 

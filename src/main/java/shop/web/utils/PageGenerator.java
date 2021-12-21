@@ -17,7 +17,7 @@ public class PageGenerator {
     private final Configuration configuration;
 
     private PageGenerator() {
-        configuration = new Configuration();
+        configuration = new Configuration(Configuration.VERSION_2_3_19);
     }
 
     public static PageGenerator instance() {

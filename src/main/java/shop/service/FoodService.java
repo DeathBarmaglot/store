@@ -2,6 +2,7 @@ package shop.service;
 
 import shop.web.entity.Food;
 import shop.dao.FoodDao;
+
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -24,15 +25,6 @@ public class FoodService {
         food.setDate(LocalDateTime.now());
         food.setId(generateId());
         foodDao.addFood(food);
-    }
-
-    private long generateId() {
-        UUID id = UUID.randomUUID();
-        String str=""+id;
-        int uid=str.hashCode();
-        String filterStr=""+uid;
-        str=filterStr.replaceAll("-", "");
-        return Integer.parseInt(str.replaceAll( "([\\ud800-\\udbff\\udc00-\\udfff])", ""));
     }
 
     public void editFood(Food food) throws SQLException {
@@ -59,5 +51,14 @@ public class FoodService {
         Food food  = foodDao.findFoodById(id);
         System.out.println(("found " + food));
         return food;
+    }
+
+    private long generateId() {
+        UUID id = UUID.randomUUID();
+        String str=""+id;
+        int uid=str.hashCode();
+        String filterStr=""+uid;
+        str=filterStr.replaceAll("-", "");
+        return Integer.parseInt(str.replaceAll( "([\\ud800-\\udbff\\udc00-\\udfff])", ""));
     }
 }

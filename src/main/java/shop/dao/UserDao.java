@@ -8,11 +8,11 @@ public interface UserDao {
 
     void removeUser(String email) throws SQLException;
 
-    List<User> findUserByName(String name) throws SQLException;
-
     boolean isUserExists(String email);
 
     void addUser(User user)throws SQLException;
 
     List<String> findAllUsers();
+
+    List<User> findUserByEmail(String email);
 }

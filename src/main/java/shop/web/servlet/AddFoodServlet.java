@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,8 +17,7 @@ public class AddFoodServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        //TODO isAuth
-//        String token = getToken(req);
+        //TODO isAuth  String token = getToken(req);
         boolean isAuth = true; //userService.isAuth(token, userToken);
         if (isAuth) {
             HashMap<String, Object> params = new HashMap<>();

@@ -13,62 +13,25 @@ public class JdbcUserDao implements UserDao {
     private static final String FIND_USER_SQL = "SELECT name, email, pwd FROM users WHERE email =?;";
     private static final String FIND_USERS_SQL = "SELECT name, email, pwd FROM users *;";
     private static final String REMOVE_USER_SQL = "DELETE FROM users (email) VALUES (?);";
-
+    private List<String> users;
 
     @Override
     public void removeUser(String email)  {
         try (Connection conn = getConnection();
              PreparedStatement preparedStatement = conn.prepareStatement(REMOVE_USER_SQL + " ")) {
             preparedStatement.setString(1, email);
-//            preparedStatement.executeUpdate();
-            ResultSet resultSet = preparedStatement.executeQuery();
-            System.out.println(resultSet);
-
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    @Override
-    public List<User> findUserByName(String name) {
-
-        try (Connection conn = getConnection();
-             PreparedStatement preparedStatement = conn.prepareStatement(FIND_USER_SQL);
-             ResultSet resultSet = preparedStatement.executeQuery()
-        ) {
-            List<User> users = new ArrayList<>();
-            System.out.println(users);
-            while (resultSet.next()) {
-                User user = USER_MAPPER.mapRow(resultSet);
-                users.add(user);
-            }
-            return users;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
     @Override
     public boolean isUserExists(String user) {
         // List<User> users = new findAllUsers();
         //TODO isUserExists -> findAllUsers
 
-        try {
-            Connection conn = getConnection();
-            PreparedStatement preparedStatement = conn.prepareStatement(FIND_USER_SQL);
-            preparedStatement.setString(1, user);
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            if (resultSet.next()) {
-                String pwd = USER_MAPPER.mapRow(resultSet).getPwd();
-                if (pwd.equals(resultSet.getString("password"))) {
-                    return true;
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
         return false;
     }
 
@@ -89,7 +52,7 @@ public class JdbcUserDao implements UserDao {
     @Override
     public List<String> findAllUsers() {
 
-        List<String> users = new ArrayList<>();
+        users = new ArrayList<>();
 
         try (Connection conn = getConnection();
              PreparedStatement preparedStatement = conn.prepareStatement(FIND_USERS_SQL);
@@ -106,6 +69,11 @@ public class JdbcUserDao implements UserDao {
             e.printStackTrace();
         }
         System.out.println("User not found");
+        return null;
+    }
+
+    @Override
+    public List<User> findUserByEmail(String email) {
         return null;
     }
 
