@@ -17,8 +17,6 @@ public interface FoodDao {
 
     List<Food> findAllFood() throws SQLException;
 
-    List<Food> findFoodByName(String name);
-
     boolean isFoodExists(long id) throws SQLException;
 
 

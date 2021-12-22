@@ -31,9 +31,9 @@ public class SecurityFilter implements Filter {
             return;
         }
 
-//        (securityService.isLoggedIn(httpServletRequest.getCookies()))
-//                ? chain.doFilter(request, response)
-//                : httpServletResponse.sendRedirect("/login");
+//        if (securityService.isLoggedIn(httpServletRequest.getParameter("email")) {
+//            chain.doFilter(request, response);
+//        } else httpServletResponse.sendRedirect("/login");
 
 //        if (!HttpServletRequest.getRequestURI().startsWith("/css")) {
 //            httpServletResponse.sendRedirect("/login");

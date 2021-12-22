@@ -1,6 +1,7 @@
 package shop.dao.jdbc;
 
 import shop.dao.jdbc.mapper.UserMapper;
+import shop.web.entity.Food;
 import shop.web.entity.User;
 import shop.dao.UserDao;
 import java.sql.*;
@@ -10,7 +11,7 @@ import java.util.List;
 public class JdbcUserDao implements UserDao {
     private static final UserMapper USER_MAPPER = new UserMapper();
     private static final String ADD_USER_SQL = "INSERT INTO users (name, email, pwd, date) VALUES (?, ?, ?, ?);";
-    private static final String FIND_USER_SQL = "SELECT name, email, pwd FROM users WHERE email =?;";
+    private static final String FIND_EMAIL_SQL = "SELECT email FROM users WHERE email =?;";
     private static final String FIND_USERS_SQL = "SELECT name, email, pwd FROM users *;";
     private static final String REMOVE_USER_SQL = "DELETE FROM users (email) VALUES (?);";
     private List<String> users;
@@ -25,6 +26,25 @@ public class JdbcUserDao implements UserDao {
             e.printStackTrace();
         }
     }
+
+
+    private List<User> getProps(String sql) {
+
+        List<User> users = new ArrayList<>();
+        try (Connection conn = getConnection();
+             PreparedStatement preparedStatement = conn.prepareStatement(sql);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+            while (resultSet.next()) {
+                users.add(USER_MAPPER.mapRow((resultSet)));
+            }
+            return users;
+        } catch (SQLException e) {
+            System.err.println("User not found");
+            e.printStackTrace();
+            throw new RuntimeException();
+        }
+    }
+
 
 
     @Override
@@ -42,7 +62,7 @@ public class JdbcUserDao implements UserDao {
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, user.getEmail());
             preparedStatement.setString(3, user.getPwd());
-            preparedStatement.setTimestamp(4, Timestamp.valueOf(user.getDate()));
+            preparedStatement.setTimestamp(4,  Timestamp.valueOf(user.getDate()));
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -73,8 +93,8 @@ public class JdbcUserDao implements UserDao {
     }
 
     @Override
-    public List<User> findUserByEmail(String email) {
-        return null;
+    public User findUserByEmail(String email) {
+        return findUserByEmail(FIND_EMAIL_SQL);
     }
 
     private Connection getConnection() throws SQLException {

@@ -15,7 +15,7 @@ public class UserMapper {
                 .name(name)
                 .email(email)
                 .pwd(pwd)
-                .date(date.toLocalDateTime())
+                .date(date.toLocalDateTime().now())
                 .build();
     }
 }

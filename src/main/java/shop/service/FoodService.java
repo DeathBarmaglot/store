@@ -2,6 +2,7 @@ package shop.service;
 
 import shop.web.entity.Food;
 import shop.dao.FoodDao;
+import shop.web.entity.User;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
@@ -23,9 +24,11 @@ public class FoodService {
 
      public void addFood(Food food) throws SQLException {
         food.setDate(LocalDateTime.now());
+        food.setEmail(food.getEmail());
         food.setId(generateId());
         foodDao.addFood(food);
-    }
+         System.out.println(food);
+     }
 
     public void editFood(Food food) throws SQLException {
         food.setDate(LocalDateTime.now());
@@ -39,12 +42,6 @@ public class FoodService {
      public void removeFood(long id) throws SQLException {
         foodDao.removeFood(id);
         System.out.println("Food remove");
-    }
-
-    public List<Food> findFoodByName(String name){
-        List<Food> foodList = foodDao.findFoodByName(name);
-        System.out.println(("Fetch" + name + foodList));
-        return foodList;
     }
 
     public Food findFoodById(long id){

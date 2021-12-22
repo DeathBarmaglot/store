@@ -13,6 +13,7 @@ public class FoodRowMapperTest {
         long id = resultSet.getLong("id");
         int price = resultSet.getInt("price");
         String comment = resultSet.getString("comment");
+        String email = resultSet.getString("email");
         String name = resultSet.getString("name");
         Timestamp date = resultSet.getTimestamp("date");
         Food food = Food.builder()
@@ -20,6 +21,7 @@ public class FoodRowMapperTest {
                 .name(name)
                 .comment(comment)
                 .price(price)
+                .email(email)
                 .date(date.toLocalDateTime())
                 .build();
         return food;

@@ -13,22 +13,23 @@ public class UserService {
         this.userDao = userDao;
     }
 
+    public UserService() {
+        userDao = null;
+    }
+
     public List<String> findAllUsers() {
-        List<String> users;
-        users = userDao.findAllUsers();
-        return users;
+        return userDao.findAllUsers();
+    }
+
+    public boolean isUserExists(String email) {
+        return userDao.isUserExists(email);
     }
 
      public void addUser(User user) throws SQLException {
         LocalDateTime localDateTime = LocalDateTime.now();
         user.setDate(localDateTime);
         userDao.addUser(user);
-        System.out.println("User added " + user);
+//        System.out.println("User added " + user); //name=
     }
 
-    public List<User> isUserExists(String email) throws SQLException {
-        List<User> userList = userDao.findUserByEmail(email);
-        System.out.println(("Obtain" + email + userList));
-        return userList;
-    }
 }

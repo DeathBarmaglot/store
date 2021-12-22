@@ -10,39 +10,81 @@ import java.util.List;
 
 public class JdbcFoodDao implements FoodDao {
     private static final FoodMapper FOOD_MAPPER = new FoodMapper();
-    private static final String ALL_FOODS_SQL = "SELECT id, name, comment, price, date FROM foods;";
-    private static final String ADD_FOOD_SQL = "INSERT INTO foods (name, comment, price, date, id) VALUES (?, ?, ?, ?, ?);";
-    private static final String EDIT_FOOD_SQL = "UPDATE foods SET name =?, comment =?, price =?, date=? WHERE id =?";
+    private static final String ALL_FOODS_SQL = "SELECT id, name, comment, price, email, date FROM foods;";
+    private static final String ADD_FOOD_SQL = "INSERT INTO foods (name, comment, price, date, email, id) VALUES (?, ?, ?, ?, ?, ?);";
+    private static final String EDIT_FOOD_SQL = "UPDATE foods SET name =?, comment =?, price =?, date=?, email=? WHERE id =?";
     private static final String REMOVE_FOOD_SQL = "DELETE FROM foods WHERE id =?;";
-    List<Food> foods = new ArrayList<>();
+    private static final String FIND_FOOD_ID_SQL = "SELECT id FROM foods WHERE id =?;";
 
     @Override
     public void addFood(Food food) {
-        promise(food, ADD_FOOD_SQL);
+        getProps(food, ADD_FOOD_SQL, food.getEmail());
     }
-
 
     @Override
     public void editFood(Food food) {
-        promise(food, EDIT_FOOD_SQL);
+        getProps(food, EDIT_FOOD_SQL, food.getEmail());
     }
 
     @Override
     public void removeFood(long id) {
-        try (Connection conn = getConnection();
-             PreparedStatement preparedStatement = conn.prepareStatement(REMOVE_FOOD_SQL + " ")) {
-            preparedStatement.setLong(1, id);
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        getProps(id, REMOVE_FOOD_SQL);
+    }
+
+    @Override
+    public Food findFoodById(long id) {
+        return getProps(id, FIND_FOOD_ID_SQL);
     }
 
     @Override
     public List<Food> findAllFood() {
-        foods = new ArrayList<>();
+        return getProps(ALL_FOODS_SQL);
+    }
+
+    @Override
+    public boolean isFoodExists(long id) {
+        for (Food food : findAllFood()) {
+            if (food.getId() == id) {
+                return true;
+            }
+        }
+        return false;
+    }
+//TODO ADMIN
+    public Food findFoodById(long id, String sql) {
+        return getProps(id, sql);
+    }
+
+    private Connection getConnection() throws SQLException {
+        final String DB_URL = "jdbc:postgresql://192.168.31.249:5432/store";
+        return DriverManager.getConnection(DB_URL, "admin", "root");
+    }
+
+    private Food getProps(long id, String sql) {
+        Food food = null;
+        try {
+            Connection conn = getConnection();
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setLong(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                food = FOOD_MAPPER.mapRow(resultSet);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException();
+        }
+        return food;
+
+
+    }
+
+
+    private List<Food> getProps(String sql) {
+
+        List<Food> foods = new ArrayList<>();
         try (Connection conn = getConnection();
-             PreparedStatement preparedStatement = conn.prepareStatement(ALL_FOODS_SQL);
+             PreparedStatement preparedStatement = conn.prepareStatement(sql);
              ResultSet resultSet = preparedStatement.executeQuery()) {
             while (resultSet.next()) {
                 foods.add(FOOD_MAPPER.mapRow((resultSet)));
@@ -51,54 +93,20 @@ public class JdbcFoodDao implements FoodDao {
         } catch (SQLException e) {
             System.err.println("Products not found");
             e.printStackTrace();
+            throw new RuntimeException();
         }
-        return foods;
     }
 
-    @Override
-    public List<Food> findFoodByName(String name) {
-        List<Food> result = null;
-        for (Food food : foods) {
-            if (food.getName().equals(name)) {
-                result.add(food);
-            }
-        }
-        return result;
-    }
-
-    @Override
-    public boolean isFoodExists(long id) {
-        for (Food food : foods) {
-            if (food.getId() == id) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public Food findFoodById(long id) {
-        for (Food food : foods) {
-            if (food.getId() == id) {
-                return food;
-            }
-        }
-        throw new IllegalArgumentException();
-    }
-
-    private Connection getConnection() throws SQLException {
-        final String DB_URL = "jdbc:postgresql://192.168.31.249:5432/store";
-        return DriverManager.getConnection(DB_URL, "admin", "root");
-    }
-
-    private void promise(Food food, String sql) {
+    private void getProps(Food food, String sql, String email) {
         try (Connection conn = getConnection();
              PreparedStatement preparedStatement = conn.prepareStatement(sql + " ")) {
             preparedStatement.setString(1, food.getName());
             preparedStatement.setString(2, food.getComment());
             preparedStatement.setInt(3, food.getPrice());
             preparedStatement.setTimestamp(4, Timestamp.valueOf(food.getDate()));
-            preparedStatement.setLong(5, food.getId());
+
+            preparedStatement.setString(5, email);
+            preparedStatement.setLong(6, food.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             System.err.println("Error 500");

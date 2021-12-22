@@ -33,6 +33,7 @@ public class EditFoodServlet extends HttpServlet {
         return Food.builder()
                 .id(Integer.parseInt(req.getParameter("id")))
                 .name(req.getParameter("name"))
+                .email(req.getParameter("email"))
                 .comment(req.getParameter("comment"))
                 .price(Integer.parseInt(req.getParameter("price")))
                 .build();
