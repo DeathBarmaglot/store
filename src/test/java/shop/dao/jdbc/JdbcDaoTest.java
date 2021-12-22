@@ -14,6 +14,7 @@
 //System.out.println(foods); //list all food mainS
 //            ResultSet resultSet = preparedStatement.executeQuery();
 //            System.out.println(resultSet);  //remove user
+//        System.out.println("User added " + user); //name=
 
 
 package shop.dao.jdbc;

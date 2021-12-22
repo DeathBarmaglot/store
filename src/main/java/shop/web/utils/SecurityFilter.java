@@ -31,22 +31,20 @@ public class SecurityFilter implements Filter {
             return;
         }
 
-//        if (securityService.isLoggedIn(httpServletRequest.getParameter("email")) {
-//            chain.doFilter(request, response);
-//        } else httpServletResponse.sendRedirect("/login");
+        if (securityService.isLoggedIn(httpServletRequest.getParameter("email"))) {
+            chain.doFilter(request, response);
+        } else httpServletResponse.sendRedirect("/login");
 
-//        if (!HttpServletRequest.getRequestURI().startsWith("/css")) {
-//            httpServletResponse.sendRedirect("/login");
-//        } else {
-//            chain.doFilter(request, response);
-//        }
-
+        if (!((HttpServletRequest) request).getRequestURI().startsWith("/css")) {
+            httpServletResponse.sendRedirect("/login");
+        } else {
+            chain.doFilter(request, response);
+        }
         System.out.println("SecurityFilter");
     }
 
     @Override
     public void destroy() {
-
     }
 
 

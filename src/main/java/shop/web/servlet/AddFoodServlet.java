@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import static shop.web.utils.WebUtil.getFood;
+
 public class AddFoodServlet extends HttpServlet {
     private final FoodService foodService;
     PageGenerator pageGenerator = PageGenerator.instance();
@@ -31,7 +33,7 @@ public class AddFoodServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         try {
-            Food food = getFoodFromRequest(req);
+            Food food = getFood(req);
             foodService.addFood(food);
             resp.sendRedirect("/main");
         } catch (Exception e) {
@@ -42,14 +44,6 @@ public class AddFoodServlet extends HttpServlet {
         }
     }
 
-    private Food getFoodFromRequest(HttpServletRequest req) {
-        return Food.builder()
-                .name(req.getParameter("name"))
-                .comment(req.getParameter("comment"))
-                .email(req.getParameter("email"))
-                .price(Integer.parseInt(req.getParameter("price")))
-                .build();
-    }
 
     public AddFoodServlet(FoodService foodService) {
         this.foodService = foodService;

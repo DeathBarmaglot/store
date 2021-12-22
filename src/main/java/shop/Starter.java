@@ -6,12 +6,9 @@ import shop.service.FoodService;
 import shop.service.SecurityService;
 import shop.service.UserService;
 import shop.web.servlet.*;
-
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
-
-import java.util.ArrayList;
 
 public class Starter {
     public static void main(String[] args) throws Exception {
@@ -21,9 +18,9 @@ public class Starter {
 
         ServletContextHandler contextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
 
-        contextHandler.addServlet(new ServletHolder(new LogInServlet(securityService)), "/login");
-//        contextHandler.addServlet(new ServletHolder(new RemoveServlet(foodService)), "/remove");
-        contextHandler.addServlet(new ServletHolder(new MainPage(foodService, userService)), "/");
+        contextHandler.addServlet(new ServletHolder(new LogInServlet(securityService)), "/");
+        contextHandler.addServlet(new ServletHolder(new AdminServlet(userService)), "/admin");
+        contextHandler.addServlet(new ServletHolder(new MainPage(foodService, userService)), "/main");
         contextHandler.addServlet(new ServletHolder(new AddFoodServlet(foodService)), "/add");
         contextHandler.addServlet(new ServletHolder(new EditFoodServlet(foodService)), "/edit");
 

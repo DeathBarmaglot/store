@@ -2,7 +2,6 @@ package shop.web.servlet;
 
 import shop.service.SecurityService;
 import shop.web.entity.User;
-import shop.service.UserService;
 import shop.web.utils.PageGenerator;
 
 import javax.servlet.http.Cookie;
@@ -10,11 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
-import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Map;
-import java.util.UUID;
+
+
+import static shop.web.utils.WebUtil.generator;
+import static shop.web.utils.WebUtil.getUser;
 
 public class LogInServlet extends HttpServlet {
     private SecurityService securityService;
@@ -26,36 +25,33 @@ public class LogInServlet extends HttpServlet {
         resp.getWriter().write(page);
     }
 
-
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        User user = User.builder()
-                .email(req.getParameter("email"))
-                .pwd(req.getParameter("pwd"))
-                .build();
 
-        String token;
+        User user = getUser(req);
+
         boolean isAuth = securityService.isLoggedIn(user.getEmail());
-        if (!isAuth) {
 
-            try {
-                token = securityService.signIn(user);
+        try {
+            if (!isAuth) {
+                String token = generator();
+                securityService.addToken(token);
                 Cookie cookie = new Cookie("user-token", token);
                 resp.addCookie(cookie);
-                resp.sendRedirect("/");
-
-            } catch (Exception e) {
-//                String error = "Invalid email or password!";
-//                String page = pageGenerator("login.html", error);
-//                resp.getWriter().write(page);
+                resp.sendRedirect("/main");
+            } else {
+                String error = "Invalid email or password!";
+                Map<String, Object> param = Map.of("error", error);
+                String page = pageGenerator.getPage("index.html", param);
+                resp.getWriter().write(page);
             }
-        } else {
+        } catch (Exception e) {
             resp.sendRedirect("/");
         }
 
     }
 
-     public LogInServlet (SecurityService securityService) {
+    public LogInServlet(SecurityService securityService) {
         this.securityService = securityService;
-     }
+    }
 }
