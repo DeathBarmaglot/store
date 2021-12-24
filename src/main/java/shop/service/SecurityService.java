@@ -7,32 +7,33 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
+import static shop.web.utils.WebUtil.getUser;
+
 public class SecurityService {
 
     private final UserService userService;
-    private final FoodService foodService;
     private final List<String> userTokens = new ArrayList<>();
 
-    public SecurityService(UserService userService, FoodService foodService) {
+    public SecurityService(UserService userService) {
         this.userService = userService;
-        this.foodService = foodService;
     }
 
     private boolean signOut(User user) {
-        return user.getEmail();
+        return Boolean.parseBoolean(user.getEmail());
     }
 
     private String createToken(User user) {
-        DigestUtils.md5Hex(user.getPwd() + user.getDate());
+        return DigestUtils.md5Hex(user.getPwd() + user.getDate());
     }
 
     public boolean isLoggedIn(String email) {
-        return userService.isAuth(user, userTokens);
+//        userService.isAuth(email, userTokens);
+        return false;
     }
 
     public boolean signIn(HttpServletRequest req, List<String> userTokens) {
-        userService.isAuth(req.get, userTokens);
-        return
+         userService.isAuth(getUser(req), userTokens);
+        return false;
     }
 
     public List<String> addToken(String token) {

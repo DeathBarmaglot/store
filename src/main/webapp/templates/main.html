@@ -4,7 +4,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <title>Main</title>
@@ -15,9 +14,10 @@
 <div class="d-flex justify-content-center">
     <h2>List of products</h2></td>
     <form action="/add" method="get">
-        <button type="submit" class="btn btn-success mx-4">Add</button>
+    <button type="submit" class="btn btn-success mx-4">Add</button>
         <!-- <a class="btn btn-info" href="/admin.html">Admin</a> -->
     <a class="btn btn-primary" href="/">LogOut</a>
+    </form>
     </form>
 </div>
     <table class="table">
@@ -25,19 +25,17 @@
             <#list foods as food>
         
         <form action="/edit" method="post">
-            <td><input style="border: none;" type="text" name="date" value="${food.date?datetime.iso?string('dd.MM.yy')}"/> </td>
             <td><input style="border: none;" type="hidden" name="id" value="${food.id?string.computer}"/> </td>
             <td><input style="border: none;" type="text" name="name" value="${food.name}"/> </td>
             <td><input style="border: none;" type="text" name="comment" value="${food.comment}"/> </td>
             <td><input style="border: none;" type="text" pattern="\d*" name="price" value="${food.price?string.computer}"/> </td>
+            <td><input style="border: none;" type="text" name="date" value="${food.date?datetime.iso?string('dd-MM-yyyy')}"/> </td>
     		<td><button type="submit" class="btn btn-outline-success float-sm-right">Save</button></td> 
     	</form>
-
     		<td>
-    	        <form action="/remove?id=${food.id?string.computer}" method="post">
+    	        <form action="/main?id=${food.id?string.computer}" method="post">
     		      <button type="submit" class="btn btn-outline-danger float-sm-center">Remove</button>
     		    </form>
-                <td> </td> 
     		</td> 
 
             <#if isAuth??>

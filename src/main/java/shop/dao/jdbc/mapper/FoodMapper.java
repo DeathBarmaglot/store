@@ -10,7 +10,6 @@ public class FoodMapper {
         long id = resultSet.getLong("id");
         String name = resultSet.getString("name");
         String comment = resultSet.getString("comment");
-        String email = resultSet.getString("email");
         int price = resultSet.getInt("price");
         Timestamp date = resultSet.getTimestamp("date");
         return Food.builder()
@@ -18,7 +17,6 @@ public class FoodMapper {
                 .name(name)
                 .comment(comment)
                 .price(price)
-                .email(email)
                 .date(date.toLocalDateTime())
                 .build();
     }

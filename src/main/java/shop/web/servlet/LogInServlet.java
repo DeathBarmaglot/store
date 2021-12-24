@@ -1,23 +1,21 @@
 package shop.web.servlet;
 
-import shop.service.SecurityService;
 import shop.web.entity.User;
+import shop.service.UserService;
 import shop.web.utils.PageGenerator;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Map;
+import java.util.List;
 
-
-import static shop.web.utils.WebUtil.generator;
 import static shop.web.utils.WebUtil.getUser;
 
 public class LogInServlet extends HttpServlet {
-    private SecurityService securityService;
+    private final UserService userService;
     PageGenerator pageGenerator = PageGenerator.instance();
+
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -27,31 +25,15 @@ public class LogInServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-
-        User user = getUser(req);
-
-        boolean isAuth = securityService.isLoggedIn(user.getEmail());
-
-        try {
-            if (!isAuth) {
-                String token = generator();
-                securityService.addToken(token);
-                Cookie cookie = new Cookie("user-token", token);
-                resp.addCookie(cookie);
-                resp.sendRedirect("/main");
-            } else {
-                String error = "Invalid email or password!";
-                Map<String, Object> param = Map.of("error", error);
-                String page = pageGenerator.getPage("index.html", param);
-                resp.getWriter().write(page);
-            }
-        } catch (Exception e) {
-            resp.sendRedirect("/");
-        }
-
+        resp.sendRedirect("/main");
+//        User user = getUser(req);
+//        System.out.println(user);
+//
+//        String page = pageGenerator.getPage("main.html");
+//        resp.getWriter().write(page);
     }
 
-    public LogInServlet(SecurityService securityService) {
-        this.securityService = securityService;
-    }
+     public LogInServlet (UserService userService, List<String> userToken) {
+        this.userService = userService;
+     }
 }

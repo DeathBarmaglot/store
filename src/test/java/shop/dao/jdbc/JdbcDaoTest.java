@@ -11,10 +11,6 @@
 // List<Food> findFoodById(long id)
 //System.out.println("addFood"+ resultSet);
 //mapRow(ResultSet resultSet);
-//System.out.println(foods); //list all food mainS
-//            ResultSet resultSet = preparedStatement.executeQuery();
-//            System.out.println(resultSet);  //remove user
-//        System.out.println("User added " + user); //name=
 
 
 package shop.dao.jdbc;
@@ -53,7 +49,6 @@ class JdbcDaoTest {
 
     @Test
     public List<Food> testFindAllFood(){
-            //       System.out.println(foods);
         return null;
     }
 
@@ -71,8 +66,7 @@ class JdbcDaoTest {
 
     @Test
     public void testRemoveFood(long id){
-//            ResultSet resultSet = preparedStatement.executeQuery();
-//            System.out.println("removeFood" + resultSet);
+
     }
 
 

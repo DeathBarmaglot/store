@@ -2,7 +2,6 @@ package shop.service;
 
 import shop.web.entity.User;
 import shop.dao.UserDao;
-
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -14,25 +13,24 @@ public class UserService {
         this.userDao = userDao;
     }
 
-    public List<User> findAllUsers() {
+    public List<String> findAllUsers() {
         return userDao.findAllUsers();
     }
 
-    public boolean isUserExists(User user) {
-        return userDao.isUserExists(user);
-    }
-
-    public boolean isAuth(User user, List<String> userTokens) {
-        return userDao.isAuth(user, userTokens);
-    }
-
-    public void removeUser(String email) throws SQLException {
-        userDao.removeUser(email);
-        System.out.println("Food remove");
-    }
-
-    public void addUser(User user) throws SQLException {
-        user.setDate(LocalDateTime.now());
+     public void addUser(User user) throws SQLException {
+        LocalDateTime localDateTime = LocalDateTime.now();
+        user.setDate(localDateTime);
         userDao.addUser(user);
+        System.out.println("User added " + user);
+    }
+
+    public List<User> findUserByName(String name) throws SQLException {
+        List<User> userList = userDao.findUserByName(name);
+        System.out.println(("Obtain" + name + userList));
+        return userList;
+    }
+
+    public void isAuth(User user, List<String> userTokens) {
+        System.out.println("isAuth");
     }
 }

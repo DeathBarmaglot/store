@@ -8,10 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+
 import java.util.HashMap;
 import java.util.Map;
-
-import static shop.web.utils.WebUtil.getFood;
 
 public class AddFoodServlet extends HttpServlet {
     private final FoodService foodService;
@@ -19,7 +18,8 @@ public class AddFoodServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        //TODO isAuth  String token = getToken(req);
+        //TODO isAuth
+//        String token = getToken(req);
         boolean isAuth = true; //userService.isAuth(token, userToken);
         if (isAuth) {
             HashMap<String, Object> params = new HashMap<>();
@@ -33,7 +33,7 @@ public class AddFoodServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         try {
-            Food food = getFood(req);
+            Food food = getFoodFromRequest(req);
             foodService.addFood(food);
             resp.sendRedirect("/main");
         } catch (Exception e) {
@@ -44,6 +44,13 @@ public class AddFoodServlet extends HttpServlet {
         }
     }
 
+    private Food getFoodFromRequest(HttpServletRequest req) {
+        return Food.builder()
+                .name(req.getParameter("name"))
+                .comment(req.getParameter("comment"))
+                .price(Integer.parseInt(req.getParameter("price")))
+                .build();
+    }
 
     public AddFoodServlet(FoodService foodService) {
         this.foodService = foodService;

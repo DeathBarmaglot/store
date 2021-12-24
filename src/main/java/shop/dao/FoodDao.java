@@ -1,11 +1,12 @@
 package shop.dao;
 
 import shop.web.entity.Food;
-
 import java.sql.SQLException;
 import java.util.List;
 
 public interface FoodDao {
+
+    List<Food> findAllFood() throws SQLException;
 
     void addFood(Food food) throws SQLException;
 
@@ -13,11 +14,8 @@ public interface FoodDao {
 
     void removeFood(long id) throws SQLException;
 
+    List<Food> findFoodByName(String name);
+
     Food findFoodById(long id);
-
-    List<Food> findAllFood() throws SQLException;
-
-    boolean isFoodExists(long id) throws SQLException;
-
 
 }

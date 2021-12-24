@@ -15,6 +15,5 @@ public class Food {
     private String name;
     private String comment;
     private int price;
-    private String email;
     private LocalDateTime date;
 }
