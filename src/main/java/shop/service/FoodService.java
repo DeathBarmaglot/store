@@ -8,6 +8,7 @@ import java.util.List;
 
 import static shop.web.utils.WebUtil.generator;
 
+
 public class FoodService {
     private final FoodDao foodDao;
 

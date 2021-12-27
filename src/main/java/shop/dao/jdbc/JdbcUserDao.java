@@ -29,7 +29,7 @@ public class JdbcUserDao implements UserDao {
     }
 
     @Override
-    public List<User> findUserByName(String name) {
+    public List<User> findUserByEmail(String name) {
 
         try (Connection conn = getConnection();
              PreparedStatement preparedStatement = conn.prepareStatement(FIND_USER_SQL);

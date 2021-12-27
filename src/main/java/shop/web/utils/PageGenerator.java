@@ -9,10 +9,11 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 public class PageGenerator {
-    private static final String HTML_DIR = "src\\main\\webapp\\templates\\";
+    private static final String HTML_DIR = "src\\main\\webapp\\views\\";
     private static PageGenerator pageGenerator;
     private final Configuration configuration;
 
@@ -28,7 +29,7 @@ public class PageGenerator {
     }
 
     public String getPage(String filename) {
-        return getPage(filename, Collections.emptyMap());
+        return getPage(filename, new HashMap<String, Object>());
     }
 
     public String getPage(String filename, Map<String, Object> data) {

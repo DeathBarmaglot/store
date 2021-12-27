@@ -16,7 +16,7 @@ services:
     image: cogniteev/echo
     command: echo 'Data Container for PostgreSQL'
     volumes:
-      - /var/lib/postgresql/data
+      - ./postgres-data:/var/lib/postgresql/data
 
   tomcat:  
   build: ./tomcat

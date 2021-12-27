@@ -17,15 +17,6 @@ public class WebUtil {
                 .build();
     }
 
-    public static Food getFood(HttpServletRequest req) {
-        return Food.builder()
-                .name(req.getParameter("name"))
-                .comment(req.getParameter("comment"))
-                .price(Integer.parseInt(req.getParameter("price")))
-                .id(Integer.parseInt(req.getParameter("id")))
-                .build();
-    }
-
     public static String generator() {
         String str = String.valueOf(UUID.randomUUID());
         String filterStr = String.valueOf(str.hashCode());

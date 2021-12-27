@@ -8,7 +8,7 @@ public interface UserDao {
 
     void removeUser(String email) throws SQLException;
 
-    List<User> findUserByName(String name) throws SQLException;
+    List<User> findUserByEmail(String name) throws SQLException;
 
     void addUser(User user)throws SQLException;
 
