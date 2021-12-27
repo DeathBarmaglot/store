@@ -12,5 +12,5 @@ public interface UserDao {
 
     void addUser(User user)throws SQLException;
 
-    List<String> findAllUsers();
+    List<User> findAllUsers();
 }

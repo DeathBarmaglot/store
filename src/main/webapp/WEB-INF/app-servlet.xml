@@ -14,11 +14,19 @@
 
     <mvc:annotation-driven/>
 
+    <bean id="userService" class="shop.service.UserService">
+        <constructor-arg ref="UserDao"/>
+    </bean>
+
+    <bean id="UserDao" class="shop.dao.jdbc.JdbcUserDao"/>
+
+
     <bean id="foodService" class="shop.service.FoodService">
         <constructor-arg ref="foodDao"/>
     </bean>
 
     <bean id="foodDao" class="shop.dao.jdbc.JdbcFoodDao"/>
+
 
     <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
         <property name="templateLoaderPath" value="classpath:views/"/>

@@ -9,7 +9,9 @@
 //
 //import static shop.web.utils.WebUtil.getUser;
 //
-//public class SecurityService {
+public class SecurityService {
+
+}
 //
 //    private final UserService userService;
 //    private final List<String> userTokens = new ArrayList<>();

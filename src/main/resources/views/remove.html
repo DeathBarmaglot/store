@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>List</title>
+</head>
+<body>
+
+<h2 align="center">You're shure</h2>
+<table class="table">
+    <#list foods as food>
+    <div class="d-flex justify-content-center">
+        <form action="/remove/${food.id}" method="post">
+            <button type="submit" class="btn btn-outline-danger float-sm-center">Yes</button>
+        </form>
+        <form action="/main" method="get">
+            <button type="submit" class="btn btn-outline-primary float-sm-center">No</button>
+        </form>
+    </div>
+    <#if isAuth??>
+</#if>
+</#list>
+</table>
+</body>
+</html>

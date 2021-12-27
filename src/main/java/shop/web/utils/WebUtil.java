@@ -1,10 +1,8 @@
 package shop.web.utils;
 
-import shop.web.entity.Food;
 import shop.web.entity.User;
 
 import javax.servlet.http.HttpServletRequest;
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class WebUtil {
@@ -12,8 +10,9 @@ public class WebUtil {
         return User.builder()
                 .name(req.getParameter("name"))
                 .email(req.getParameter("email"))
-                .pwd(req.getParameter("pwd"))
-                .date(LocalDateTime.parse(req.getParameter("date")))
+                .password(req.getParameter("password"))
+                .role(req.getParameter("role"))
+                .auth(Boolean.parseBoolean(req.getParameter("auth")))
                 .build();
     }
 

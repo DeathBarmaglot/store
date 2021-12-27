@@ -12,7 +12,7 @@ env:
 on:
   push:
     branches: 
-      - main
+      - master
   pull_request:
     branches: 
       - main
@@ -45,35 +45,13 @@ jobs:
     - uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
-    - name: download
-      run: |
-        pwd
-        cd hw12
-        ls -la
-        pip install --upgrade pip && pip install paramiko 
-        python pm.py
     - name: docker build
       run: |
-        cd hw12
+        cd TPN
         docker-compose up -d --force-recreate
         
     - name: Create ZIP artifacts
       run: zip -r ${{ env.DEPLOY_PACKAGE_NAME }} ./ -x *.git*
-
-#     - name: Copy Deployment package
-#       run : cp ${{ env.DEPLOY_PACKAGE_NAME }}  http://${{ env.PACKAGE_PATH }}
-
-#     - name: put zip on sftp
-#       uses: appleboy/scp-action@master
-#       with:
-#         host: ${{ env.HOST }}
-#         username: ${{ env.USER }}
-#         key: ${{ env.SSH_PRIVATE_KEY }}
-#         port: ${{ env.PORT }}
-#         source: "./"
-#         target: "/home/testuser/pavlo_polyak/"
-#         strip_components: 1
-
 
     - name: git push
       run: |

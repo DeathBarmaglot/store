@@ -2,8 +2,8 @@ package shop.service;
 
 import shop.web.entity.User;
 import shop.dao.UserDao;
+
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.util.List;
 
 public class UserService {
@@ -13,13 +13,11 @@ public class UserService {
         this.userDao = userDao;
     }
 
-    public List<String> findAllUsers() {
+    public List<User> findAllUsers() {
         return userDao.findAllUsers();
     }
 
-     public void addUser(User user) throws SQLException {
-        LocalDateTime localDateTime = LocalDateTime.now();
-        user.setDate(localDateTime);
+    public void addUser(User user) throws SQLException {
         userDao.addUser(user);
         System.out.println("User added " + user);
     }
@@ -32,5 +30,8 @@ public class UserService {
 
     public void isAuth(User user, List<String> userTokens) {
         System.out.println("isAuth");
+    }
+
+    public void removeUser(Long userId) {
     }
 }

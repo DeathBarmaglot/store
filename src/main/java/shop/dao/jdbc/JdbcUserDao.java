@@ -15,7 +15,6 @@ public class JdbcUserDao implements UserDao {
     private static final String FIND_USERS_SQL = "SELECT name, email, pwd FROM users *;";
     private static final String REMOVE_USER_SQL = "DELETE FROM users (email) VALUES (?);";
 
-
     @Override
     public void removeUser(String email) {
         try (Connection conn = getConnection();
@@ -37,6 +36,7 @@ public class JdbcUserDao implements UserDao {
         ) {
             List<User> users = new ArrayList<>();
             System.out.println(users);
+
             while (resultSet.next()) {
                 User user = USER_MAPPER.mapRow(resultSet);
                 users.add(user);
@@ -47,15 +47,15 @@ public class JdbcUserDao implements UserDao {
         }
         return null;
     }
-
     @Override
     public void addUser(User user) {
         try (Connection conn = getConnection();
              PreparedStatement preparedStatement = conn.prepareStatement(ADD_USER_SQL + " ")) {
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, user.getEmail());
-            preparedStatement.setString(3, user.getPwd());
-            preparedStatement.setTimestamp(4, Timestamp.valueOf(user.getDate()));
+            preparedStatement.setString(3, user.getPassword());
+            preparedStatement.setString(4, user.getRole());
+            preparedStatement.setBoolean(5, user.isAuth());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -63,9 +63,9 @@ public class JdbcUserDao implements UserDao {
     }
 
     @Override
-    public List<String> findAllUsers() {
+    public List<User> findAllUsers() {
 
-        List<String> users = new ArrayList<>();
+        List<User> users = new ArrayList<>();
 
         try (Connection conn = getConnection();
              PreparedStatement preparedStatement = conn.prepareStatement(FIND_USERS_SQL);
@@ -73,7 +73,7 @@ public class JdbcUserDao implements UserDao {
         ) {
             while (resultSet.next()) {
 
-                String user = USER_MAPPER.mapRow(resultSet).getName();
+                User user = USER_MAPPER.mapRow(resultSet);
                 users.add(user);
                 System.out.println(user);
             }
